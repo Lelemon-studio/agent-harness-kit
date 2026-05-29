@@ -38,10 +38,14 @@ template/
 │       ├── spec-done.md          # /spec-done - close it out
 │       ├── spec-status.md        # /spec-status - where things stand
 │       └── memory-gc.md          # /memory-gc - consolidate + dedupe memory
-├── specs/_templates/             # SPEC / PHASES / SESSION / DONE
+├── specs/
+│   ├── _templates/               # SPEC / PHASES / SESSION / DONE
+│   └── EXAMPLE-add-rate-limiting/ # a filled, mid-flight worked example
 └── memory/                       # starter index + one-fact template
 docs/
 ├── HARNESS.md                    # the harness-engineering philosophy
+├── SPEC-SYSTEM.md                # the spec planning system + how to use it
+├── AGENT-ORCHESTRATION.md        # multi-agent patterns (and when NOT to)
 └── MEMORY-SYSTEM.md              # the file-based memory methodology
 ```
 
@@ -64,6 +68,13 @@ won't clobber an existing one), and `specs/_templates/`. Then:
 2. Seed your memory from `template/memory/` - see [`docs/MEMORY-SYSTEM.md`](docs/MEMORY-SYSTEM.md).
 3. Hooks need Python on `PATH`. Open the agent and try `git push` to confirm the
    confirmation prompt fires.
+
+## Docs
+
+- [`docs/HARNESS.md`](docs/HARNESS.md) - the harness-engineering model (guides + sensors) and how to extend it.
+- [`docs/SPEC-SYSTEM.md`](docs/SPEC-SYSTEM.md) - the spec-driven planning system, the four files, and how to run it across sessions.
+- [`docs/AGENT-ORCHESTRATION.md`](docs/AGENT-ORCHESTRATION.md) - when (and when not) to use multiple agents; the patterns that hold up.
+- [`docs/MEMORY-SYSTEM.md`](docs/MEMORY-SYSTEM.md) - the file-based memory methodology and `/memory-gc`.
 
 ## Customize
 
