@@ -1,0 +1,12 @@
+# --- agent-harness-kit: paste into your project's .gitignore ---
+# Version the shareable harness (.claude/settings.json, .claude/hooks/,
+# .claude/commands/) so the repo IS your harness. Ignore only machine/session
+# state and anything secret.
+.claude/settings.local.json
+.claude/projects/
+.claude/todos/
+.claude/shell-snapshots/
+.claude/statsig/
+.claude/.credentials.json
+.claude/hooks/__pycache__/
+# --- end snippet ---

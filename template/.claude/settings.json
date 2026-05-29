@@ -1,0 +1,37 @@
+{
+  "$comment": "Shared, version-controlled harness config. Machine-specific stuff (permissions, local paths) belongs in .claude/settings.local.json, which is gitignored. See docs/HARNESS.md. Add your MCP servers with an explicit allow-list (enabledMcpjsonServers) instead of enableAllProjectMcpServers — the docs say not to mix both, and an explicit list avoids auto-approving new servers without review.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "WebSearch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/.claude/hooks/websearch-add-year.py\"",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/.claude/hooks/confirm-push.py\"",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/.claude/hooks/no-emoji-copy.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

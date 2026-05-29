@@ -1,0 +1,17 @@
+# This repo IS the harness — version the shareable parts. The kit itself has no
+# secrets. These ignores are what your TARGET project should also ignore once the
+# harness is installed (see gitignore-snippet.txt).
+
+# Machine/session-specific Claude Code state (never commit):
+.claude/settings.local.json
+.claude/projects/
+.claude/todos/
+.claude/shell-snapshots/
+.claude/statsig/
+.claude/.credentials.json
+.claude/hooks/__pycache__/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
