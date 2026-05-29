@@ -19,10 +19,10 @@ cp "$SRC/.claude/commands/"* "$TARGET/.claude/commands/"
 chmod +x "$TARGET/.claude/hooks/"*.py 2>/dev/null || true
 echo "  + .claude/hooks/ and .claude/commands/"
 
-# 2. settings.json — don't clobber an existing one
+# 2. settings.json - don't clobber an existing one
 if [ -f "$TARGET/.claude/settings.json" ]; then
   cp "$SRC/.claude/settings.json" "$TARGET/.claude/settings.kit.json"
-  echo "  ! .claude/settings.json exists — wrote settings.kit.json instead. Merge the hooks block by hand."
+  echo "  ! .claude/settings.json exists - wrote settings.kit.json instead. Merge the hooks block by hand."
 else
   cp "$SRC/.claude/settings.json" "$TARGET/.claude/settings.json"
   echo "  + .claude/settings.json"

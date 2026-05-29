@@ -1,67 +1,67 @@
-Marca un feature/spec como completado.
+Mark a feature/spec as complete.
 
-El nombre del feature se pasa en $ARGUMENTS (ejemplo: `/spec-done caching-strategy`).
+The feature name is passed in $ARGUMENTS (example: `/spec-done caching-strategy`).
 
-## Pasos
+## Steps
 
-1. **Validar que el spec existe**
-   - Buscar en `specs/*<nombre>/` (el nombre puede tener prefijo de fecha)
+1. **Verify the spec exists**
+   - Look in `specs/*<name>/` (the name may have a date prefix)
 
-2. **Verificar checklist**
-   - Leer DONE.md
-   - Contar criterios cumplidos vs total
-   - Si no está 100% completo, advertir al usuario
+2. **Check the checklist**
+   - Read DONE.md
+   - Count criteria met vs total
+   - If not 100% complete, warn the user
 
-3. **Mostrar resumen de verificación**
+3. **Show a verification summary**
    ```
-   Verificando: caching-strategy
+   Verifying: caching-strategy
 
-   Checklist de aceptación:
-   ✅ Criterios funcionales: 4/4
-   ✅ Calidad de código: 4/4
-   ⚠️  Testing: 2/3 (falta cobertura >= 70%)
-   ✅ Seguridad: 2/2
-   ✅ Documentación: 4/4
+   Acceptance checklist:
+   - Functional criteria: 4/4
+   - Code quality: 4/4
+   - Testing: 2/3 (missing coverage >= 70%)
+   - Security: 2/2
+   - Documentation: 4/4
 
-   Total: 16/17 criterios (94%)
+   Total: 16/17 criteria (94%)
 
-   ⚠️  Hay criterios pendientes. ¿Deseas continuar de todas formas?
+   There are pending criteria. Continue anyway?
    ```
 
-4. **Si se confirma, marcar como DONE**
-   - Actualizar status en SPEC.md a `DONE`
-   - Actualizar campo "Fin" en SPEC.md con fecha/hora actual (`YYYY-MM-DD HH:mm`)
-   - Actualizar campo "Finalizado" en DONE.md con fecha/hora actual
-   - Actualizar header de PHASES.md con progreso final
+4. **If confirmed, mark as DONE**
+   - Update status in SPEC.md to `DONE`
+   - Update the "Finished" field in SPEC.md with current date/time (`YYYY-MM-DD HH:mm`)
+   - Update the "Finished" field in DONE.md with current date/time
+   - Update the PHASES.md header with final progress
 
-5. **Calcular y mostrar duración**
-   - Leer fecha de "Inicio" de SPEC.md
-   - Calcular diferencia con fecha/hora actual
-   - Mostrar duración total del feature
+5. **Compute and show duration**
+   - Read the "Started" date from SPEC.md
+   - Compute the difference with the current date/time
+   - Show the feature's total duration
 
-6. **Confirmar completado**
+6. **Confirm completion**
    ```
-   ✅ Spec marcado como DONE
+   Spec marked as DONE
 
    Spec: specs/20260201-1900-caching-strategy/
 
-   Tiempos:
-   - Inicio: 2026-02-01 19:00
-   - Fin: 2026-02-01 23:45
-   - Duración: 4h 45m
+   Timing:
+   - Started: 2026-02-01 19:00
+   - Finished: 2026-02-01 23:45
+   - Duration: 4h 45m
 
-   Resumen:
-   - Fases completadas: 4/4
-   - Criterios cumplidos: 17/17
+   Summary:
+   - Phases complete: 4/4
+   - Criteria met: 17/17
    ```
 
-## Formato de Fechas
+## Date Format
 
-- **Fin:** `YYYY-MM-DD HH:mm` (ej: `2026-02-01 23:45`)
-- La duración se calcula automáticamente desde Inicio hasta Fin
+- **Finished:** `YYYY-MM-DD HH:mm` (e.g. `2026-02-01 23:45`)
+- Duration is computed automatically from Started to Finished
 
-## Notas
+## Notes
 
-- Los specs NO se mueven a otra carpeta, solo se actualiza el status
-- El spec permanece en `specs/` para referencia futura
-- La duración incluye tiempo calendario, no solo tiempo de trabajo activo
+- Specs are NOT moved to another folder, only the status is updated
+- The spec stays in `specs/` for future reference
+- Duration is calendar time, not just active working time

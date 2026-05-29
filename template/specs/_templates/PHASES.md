@@ -1,36 +1,36 @@
-# Fases - {{FEATURE_NAME}}
+# Phases - {{FEATURE_NAME}}
 
-> Progreso: **0/X fases completadas**
-> Última actualización: {{DATE}}
+> Progress: **0/X phases complete**
+> Last updated: {{DATE}}
 
 ---
 
-## Fase 1: ...
+## Phase 1: ...
 
-> **Estado:** `PENDIENTE`
-> **Criterio de éxito:** ...
+> **Status:** `PENDING`
+> **Success criterion:** ...
 
-### Tareas
+### Tasks
 
 - [ ] 1.1 - ...
 - [ ] 1.2 - ...
 
-### Verificación
+### Verification
 
 ```bash
-# Comando para verificar
+# Command to verify the phase is complete
 ```
 
-### Notas
+### Notes
 
-<!-- Notas de implementación -->
+<!-- Implementation notes -->
 
 ---
 
-## Resumen de Progreso
+## Progress Summary
 
-| Fase | Estado | Tareas | Verificado |
-|------|--------|--------|------------|
-| 1. ... | ⏳ | 0/X | - |
+| Phase | Status | Tasks | Verified |
+|-------|--------|-------|----------|
+| 1. ... | pending | 0/X | - |
 
-**Leyenda:** ⏳ Pendiente | 🔄 En progreso | ✅ Completada
+**Legend:** pending | in-progress | done

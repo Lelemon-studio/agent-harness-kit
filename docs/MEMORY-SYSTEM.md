@@ -1,7 +1,7 @@
 # The memory system
 
 A file-based, markdown-first persistent memory for a coding agent. Deliberately
-simple — no vector DB, no graph, no retrieval pipeline. It's the same architecture
+simple - no vector DB, no graph, no retrieval pipeline. It's the same architecture
 Anthropic's own memory tool uses (the agent reads and writes plain files), and for
 a single operator it beats a heavyweight framework on auditability, portability,
 and zero infra.
@@ -30,7 +30,7 @@ memory/
 ```markdown
 ---
 name: short-kebab-case-slug
-description: one-line summary — used to judge relevance during recall
+description: one-line summary - used to judge relevance during recall
 metadata:
   type: user | feedback | project | reference
 ---
@@ -46,19 +46,19 @@ Link related memories with [[their-name]].
 
 ### The four types
 
-- **`user`** — who the operator is (role, expertise, preferences).
-- **`feedback`** — how the agent should work: corrections and confirmed approaches.
+- **`user`** - who the operator is (role, expertise, preferences).
+- **`feedback`** - how the agent should work: corrections and confirmed approaches.
   Always include the *why*; this is where behavior change is encoded.
-- **`project`** — ongoing work, goals, constraints not derivable from code or git.
+- **`project`** - ongoing work, goals, constraints not derivable from code or git.
   Convert relative dates to absolute.
-- **`reference`** — pointers to external resources (URLs, dashboards, tickets).
+- **`reference`** - pointers to external resources (URLs, dashboards, tickets).
 
 ## Rules that keep it from rotting
 
 1. **Index size ceiling.** Keep `MEMORY.md` small enough to load fully (in Claude
    Code, under ~24KB). One line per memory, under ~200 chars. Detail goes in the
    topic file, never in the index.
-2. **One fact = one file.** Before creating, check if a file already covers it —
+2. **One fact = one file.** Before creating, check if a file already covers it  - 
    update, don't duplicate.
 3. **Delete what's wrong.** A stale or false memory is worse than no memory.
 4. **Provenance on conflicts.** When two memories contradict, prefer the more
@@ -68,7 +68,7 @@ Link related memories with [[their-name]].
 ## Maintenance: `/memory-gc`
 
 The `/memory-gc` slash command (in `.claude/commands/`) runs a periodic
-consolidation pass — the simple version of a "reflection" loop:
+consolidation pass - the simple version of a "reflection" loop:
 
 - clusters memories by topic, flags duplicates and contradictions,
 - checks index hygiene (broken pointers, oversized index, orphan files),
@@ -83,4 +83,4 @@ complexity at scale: 500+ memories growing unbounded, multi-user/multi-agent,
 sub-200ms semantic retrieval, or temporal queries across history. For a single
 operator at ~100 memories where recall is the model reading an injected index,
 that's over-engineering. The honest upgrade trigger is roughly 150+ memories or
-going multi-user — not "it feels primitive."
+going multi-user - not "it feels primitive."

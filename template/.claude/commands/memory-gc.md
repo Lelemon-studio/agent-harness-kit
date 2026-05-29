@@ -1,50 +1,50 @@
-Consolida y limpia la memoria del harness: agrupa por tema, detecta contradicciones y duplicados, propone fusiones / supersesiones / borrados, y mantiene el indice MEMORY.md sano. Es el equivalente simple del "reflection pass" — correr cada cierto tiempo, no en cada sesion.
+Consolidate and clean up the agent's memory: cluster by topic, detect contradictions and duplicates, propose merges / supersessions / deletions, and keep the MEMORY.md index healthy. This is the simple version of a "reflection pass" — run it occasionally, not every session.
 
-En $ARGUMENTS se puede pasar un tema para acotar la auditoria (ejemplo: `/memory-gc lelemon-app`). Sin argumento, audita toda la memoria.
+$ARGUMENTS may pass a topic to scope the audit (example: `/memory-gc billing`). With no argument, audit all of memory.
 
-La memoria vive en el directorio de memoria del proyecto actual (`~/.claude/projects/<project-id>/memory/`), cuyo indice de una linea por memoria es `MEMORY.md`. El harness inyecta esa ruta al inicio de sesion; usar esa, no inventar.
+Memory lives in Claude Code's auto-memory directory (`~/.claude/projects/<project-id>/memory/`), whose one-line-per-memory index is `MEMORY.md`. The harness injects that path at session start; use it, don't invent one. See docs/MEMORY-SYSTEM.md.
 
-## Regla de seguridad (no negociable)
+## Safety rule (non-negotiable)
 
-La memoria es data del usuario. NUNCA borrar, fusionar ni sobrescribir un archivo sin haber mostrado la propuesta y recibido OK explicito. El flujo es: auditar (solo lectura) -> proponer -> confirmar -> aplicar. El usuario puede aprobar todo, parte o nada.
+Memory is the user's data. NEVER delete, merge, or overwrite a file without first showing the proposal and getting explicit approval. The flow is: audit (read-only) -> propose -> confirm -> apply. The user may approve all, some, or none.
 
-## Pasos
+## Steps
 
-1. **Cargar (solo lectura)**
-   - Leer `MEMORY.md` (el indice) y listar todos los topic files del directorio de memoria.
-   - Si hay argumento, acotar a las memorias cuyo nombre, descripcion o contenido toquen ese tema.
-   - No modificar nada en este paso.
+1. **Load (read-only)**
+   - Read `MEMORY.md` (the index) and list every topic file in the memory directory.
+   - If there's an argument, scope to memories whose name, description, or content touch that topic.
+   - Do not modify anything in this step.
 
-2. **Auditar** — buscar, sin tocar:
-   - **Duplicados / solapamiento:** dos o mas archivos que cubren el mismo hecho. Candidatos a fusion.
-   - **Contradicciones:** hechos del mismo tema con valores distintos (ej. un dato que cambio). Para cada par en conflicto, identificar cual es mas reciente y cual tiene mas autoridad (`directo` = conversacion con el usuario > `docs` > `inferido` de copy/web). No actuar sobre lo inferido sin confirmar.
-   - **Punteros rotos:** lineas en `MEMORY.md` que apuntan a archivos inexistentes, y archivos sin linea en el indice.
-   - **Higiene del indice:** tamano total de `MEMORY.md` (debe quedar < 24.4KB o se carga parcial), lineas de mas de ~200 chars (el detalle va en el topic file, no en el indice), y que sea una linea por memoria.
-   - **Fechas relativas** sin convertir a absolutas, y memorias marcadas para verificar que no se chequearon.
+2. **Audit** — find, without touching:
+   - **Duplicates / overlap:** two or more files covering the same fact. Merge candidates.
+   - **Contradictions:** facts on the same topic with different values (e.g. data that changed). For each conflicting pair, identify which is more recent and which has more authority (`direct` = conversation with the user > `docs` > `inferred` from copy/web). Don't act on inferred facts without confirming.
+   - **Broken pointers:** lines in `MEMORY.md` pointing to nonexistent files, and files with no line in the index.
+   - **Index hygiene:** total size of `MEMORY.md` (must stay under the load ceiling, ~24KB), lines over ~200 chars (detail belongs in the topic file, not the index), and one line per memory.
+   - **Relative dates** not converted to absolute, and memories flagged for verification that were never checked.
 
-3. **Presentar el reporte** con propuestas numeradas, agrupadas por tipo:
-   - `FUSIONAR`: A + B -> C, con la razon y como queda el archivo destino (con `[[wikilinks]]` a lo relacionado).
-   - `SUPERSEDER`: A queda obsoleta por B. Preferir marcar A como superada (anadir nota `Superada por [[B]] el <fecha> — <por que>` + procedencia) antes que borrar, salvo que A sea claramente falsa.
-   - `BORRAR`: solo lo claramente falso o muerto.
-   - `ARREGLAR INDICE`: punteros rotos, lineas largas, entradas faltantes.
-   - Si no hay nada que hacer, decirlo y terminar.
+3. **Present the report** with numbered proposals, grouped by type:
+   - `MERGE`: A + B -> C, with the reason and how the destination file ends up (with `[[wikilinks]]` to related memories).
+   - `SUPERSEDE`: A is obsoleted by B. Prefer marking A as superseded (add a note `Superseded by [[B]] on <date> — <why>` + provenance) over deleting, unless A is clearly false.
+   - `DELETE`: only what's clearly false or dead.
+   - `FIX INDEX`: broken pointers, long lines, missing entries.
+   - If there's nothing to do, say so and stop.
 
-4. **Pedir confirmacion.** Esperar el OK. No aplicar nada destructivo antes.
+4. **Ask for confirmation.** Wait for the OK. Apply nothing destructive before that.
 
-5. **Aplicar lo aprobado**, respetando las convenciones del harness:
-   - Un hecho = un archivo, con frontmatter (`name`, `description`, `metadata.type` ∈ user | feedback | project | reference).
-   - `feedback` y `project` llevan lineas `**Why:**` y `**How to apply:**`.
-   - Linkear lo relacionado con `[[name]]`.
-   - Fechas relativas -> absolutas.
-   - Al fusionar: escribir el archivo destino, borrar los fuentes, actualizar las lineas en `MEMORY.md` (una linea por memoria).
+5. **Apply what's approved**, respecting the harness conventions:
+   - One fact = one file, with frontmatter (`name`, `description`, `metadata.type` in user | feedback | project | reference).
+   - `feedback` and `project` carry `**Why:**` and `**How to apply:**` lines.
+   - Link related memories with `[[name]]`.
+   - Relative dates -> absolute.
+   - When merging: write the destination file, delete the sources, update the lines in `MEMORY.md` (one line per memory).
 
-6. **Verificar al cierre:**
-   - `MEMORY.md` sin punteros rotos y < 24.4KB.
-   - Cada topic file tiene su linea en el indice y viceversa.
-   - Reportar en una linea que se hizo (cuantas fusiones, supersesiones, borrados, fixes de indice).
+6. **Verify on close:**
+   - `MEMORY.md` has no broken pointers and is under the load ceiling.
+   - Every topic file has its line in the index and vice versa.
+   - Report in one line what was done (how many merges, supersessions, deletions, index fixes).
 
-## Notas
+## Notes
 
-- Esto NO es un sistema de retrieval: la memoria se recuerda porque `MEMORY.md` se inyecta al inicio. No agregar ranking, embeddings ni scripts — el valor esta en consolidar y resolver conflictos, no en maquinaria.
-- Correr periodicamente o cuando la memoria se sienta desordenada, no en cada sesion.
-- Ante la duda entre fusionar o dejar separado, dejar separado: dos memorias claras valen mas que una mezclada confusa.
+- This is NOT a retrieval system: memory is recalled because `MEMORY.md` is injected at session start. Don't add ranking, embeddings, or scripts — the value is in consolidating and resolving conflicts, not in machinery.
+- Run periodically or when memory feels messy, not every session.
+- When unsure whether to merge or keep separate, keep separate: two clear memories beat one muddled merge.

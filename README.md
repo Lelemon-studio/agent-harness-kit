@@ -33,11 +33,11 @@ template/
 │   │   ├── no-emoji-copy.py      # example: deny emojis in customer-facing files
 │   │   └── websearch-add-year.py # bias web searches toward recent results
 │   └── commands/
-│       ├── spec.md               # /spec — start a planned feature
-│       ├── spec-continue.md      # /spec-continue — resume with full context
-│       ├── spec-done.md          # /spec-done — close it out
-│       ├── spec-status.md        # /spec-status — where things stand
-│       └── memory-gc.md          # /memory-gc — consolidate + dedupe memory
+│       ├── spec.md               # /spec - start a planned feature
+│       ├── spec-continue.md      # /spec-continue - resume with full context
+│       ├── spec-done.md          # /spec-done - close it out
+│       ├── spec-status.md        # /spec-status - where things stand
+│       └── memory-gc.md          # /memory-gc - consolidate + dedupe memory
 ├── specs/_templates/             # SPEC / PHASES / SESSION / DONE
 └── memory/                       # starter index + one-fact template
 docs/
@@ -61,14 +61,14 @@ This copies `.claude/hooks/`, `.claude/commands/`, `.claude/settings.json` (it
 won't clobber an existing one), and `specs/_templates/`. Then:
 
 1. Append [`gitignore-snippet.txt`](gitignore-snippet.txt) to your project's `.gitignore`.
-2. Seed your memory from `template/memory/` — see [`docs/MEMORY-SYSTEM.md`](docs/MEMORY-SYSTEM.md).
+2. Seed your memory from `template/memory/` - see [`docs/MEMORY-SYSTEM.md`](docs/MEMORY-SYSTEM.md).
 3. Hooks need Python on `PATH`. Open the agent and try `git push` to confirm the
    confirmation prompt fires.
 
 ## Customize
 
 It's meant to be edited, not adopted whole. The `no-emoji-copy.py` hook has a
-config block at the top (which file types/paths to check) — adapt or delete it.
+config block at the top (which file types/paths to check) - adapt or delete it.
 The slash commands are plain markdown. Add your own hooks following the same
 pattern. Keep sensors **high-precision**: a false-positive hook is worse than none.
 

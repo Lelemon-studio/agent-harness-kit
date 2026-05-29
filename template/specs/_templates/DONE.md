@@ -1,39 +1,39 @@
-# Checklist de Aceptación - {{FEATURE_NAME}}
+# Acceptance Checklist - {{FEATURE_NAME}}
 
-> **Propósito:** Verificar que el feature está completo.
-> Todos los items deben estar marcados antes de archivar.
-
----
-
-## Criterios Funcionales
-
-- [ ] Criterio 1
-- [ ] Criterio 2
-
-## Criterios Técnicos
-
-- [ ] Build exitoso
-- [ ] Sin errores de TypeScript
-- [ ] Tests pasando
-
-## Documentación
-
-- [ ] SPEC.md actualizado
-- [ ] PHASES.md con todas las fases completadas
-- [ ] SESSION.md con notas de todas las sesiones
+> **Purpose:** Verify the feature is complete.
+> All items must be checked before archiving.
 
 ---
 
-## Verificación Final
+## Functional Criteria
+
+- [ ] Criterion 1
+- [ ] Criterion 2
+
+## Technical Criteria
+
+- [ ] Build succeeds
+- [ ] No type errors
+- [ ] Tests passing
+
+## Documentation
+
+- [ ] SPEC.md updated
+- [ ] PHASES.md with all phases complete
+- [ ] SESSION.md with notes from every session
+
+---
+
+## Final Verification
 
 ```bash
-# Comando de verificación
+# Verification command
 ```
 
 ---
 
-## Aprobación
+## Sign-off
 
-| Rol | Nombre | Fecha | Status |
-|-----|--------|-------|--------|
-| Desarrollador | - | - | ⏳ |
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Developer | - | - | pending |

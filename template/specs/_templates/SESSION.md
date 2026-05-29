@@ -1,42 +1,42 @@
-# Contexto de Sesión - {{FEATURE_NAME}}
+# Session Context - {{FEATURE_NAME}}
 
-> **Propósito:** Información para retomar el trabajo rápidamente en cada sesión.
-> Lee este archivo al inicio de cada sesión de trabajo.
+> **Purpose:** Information to resume work quickly each session.
+> Read this file at the start of every work session.
 
 ---
 
-## Estado Actual
+## Current State
 
-**Fase actual:** Fase 1
-**Fecha de inicio:** {{DATETIME}}
-**Última tarea completada:** -
-**Próxima tarea:** 1.1
+**Current phase:** Phase 1
+**Start date:** {{DATETIME}}
+**Last task completed:** -
+**Next task:** 1.1
 
-## Archivos Clave
+## Key Files
 
-| Archivo | Por qué es relevante |
-|---------|---------------------|
+| File | Why it's relevant |
+|------|-------------------|
 | ... | ... |
 
-## Comandos Frecuentes
+## Frequent Commands
 
 ```bash
 # ...
 ```
 
-## Decisiones Tomadas
+## Decisions Made
 
-| Fecha | Decisión | Razón |
-|-------|----------|-------|
+| Date | Decision | Reason |
+|------|----------|--------|
 | {{DATE}} | ... | ... |
 
-## Bloqueadores / Pendientes
+## Blockers / Open Items
 
 - [ ] ...
 
-## Notas de Sesiones Anteriores
+## Notes from Previous Sessions
 
-### Sesión {{DATE}}
-- Completamos: ...
-- Aprendimos: ...
-- Próximos pasos: ...
+### Session {{DATE}}
+- Completed: ...
+- Learned: ...
+- Next steps: ...

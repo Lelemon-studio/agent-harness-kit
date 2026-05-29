@@ -1,22 +1,22 @@
 # {{FEATURE_NAME}}
 
 > **Status:** `IN_PROGRESS`
-> **Creado:** {{DATE}}
-> **Actualizado:** {{DATE}}
+> **Created:** {{DATE}}
+> **Updated:** {{DATE}}
 
 ---
 
-## Resumen
+## Summary
 
-<!-- Descripción breve del feature en 2-3 líneas -->
+<!-- Brief description of the feature, 2-3 lines -->
 
-## Problema
+## Problem
 
-<!-- ¿Qué problema resuelve? ¿Por qué es importante ahora? -->
+<!-- What problem does this solve? Why does it matter now? -->
 
-## Propuesta
+## Proposal
 
-<!-- ¿Cómo lo vamos a resolver? Pasos de alto nivel -->
+<!-- How are we going to solve it? High-level steps -->
 
 ## Goals
 
@@ -25,27 +25,27 @@
 
 ## Non-Goals
 
-- **No** haremos X
-- **No** implementaremos Y
+- We will **not** do X
+- We will **not** implement Y
 
-## Contexto Técnico
+## Technical Context
 
-| Recurso | Ubicación |
-|---------|-----------|
+| Resource | Location |
+|----------|----------|
 | ... | ... |
 
-## Alternativas Consideradas
+## Alternatives Considered
 
-### Opción A: ...
+### Option A: ...
 - **Pros:** ...
 - **Cons:** ...
 
-### Opción B: ... (elegida)
+### Option B: ... (chosen)
 - **Pros:** ...
 - **Cons:** ...
 
-## Riesgos y Mitigaciones
+## Risks and Mitigations
 
-| Riesgo | Probabilidad | Impacto | Mitigación |
-|--------|--------------|---------|------------|
+| Risk | Likelihood | Impact | Mitigation |
+|------|------------|--------|------------|
 | ... | ... | ... | ... |

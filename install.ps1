@@ -15,18 +15,18 @@ $src = Join-Path $kit "template"
 if (-not (Test-Path $Target)) { throw "Target does not exist: $Target" }
 Write-Host "Installing harness into: $Target" -ForegroundColor Cyan
 
-# 1. Hooks + commands (safe to copy — additive)
+# 1. Hooks + commands (safe to copy - additive)
 New-Item -ItemType Directory -Force -Path (Join-Path $Target ".claude/hooks") | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $Target ".claude/commands") | Out-Null
 Copy-Item (Join-Path $src ".claude/hooks/*") (Join-Path $Target ".claude/hooks") -Force
 Copy-Item (Join-Path $src ".claude/commands/*") (Join-Path $Target ".claude/commands") -Force
 Write-Host "  + .claude/hooks/ and .claude/commands/" -ForegroundColor Green
 
-# 2. settings.json — don't clobber an existing one
+# 2. settings.json - don't clobber an existing one
 $dstSettings = Join-Path $Target ".claude/settings.json"
 if (Test-Path $dstSettings) {
     Copy-Item (Join-Path $src ".claude/settings.json") (Join-Path $Target ".claude/settings.kit.json") -Force
-    Write-Host "  ! .claude/settings.json already exists — wrote settings.kit.json instead. Merge the hooks block by hand." -ForegroundColor Yellow
+    Write-Host "  ! .claude/settings.json already exists - wrote settings.kit.json instead. Merge the hooks block by hand." -ForegroundColor Yellow
 } else {
     Copy-Item (Join-Path $src ".claude/settings.json") $dstSettings -Force
     Write-Host "  + .claude/settings.json" -ForegroundColor Green

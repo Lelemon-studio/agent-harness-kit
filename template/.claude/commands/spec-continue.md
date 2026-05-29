@@ -1,61 +1,61 @@
-Continúa el trabajo en un spec existente, cargando todo el contexto necesario.
+Resume work on an existing spec, loading all the context you need.
 
-El nombre del feature se pasa en $ARGUMENTS (ejemplo: `/spec-continue caching-strategy`).
+The feature name is passed in $ARGUMENTS (example: `/spec-continue caching-strategy`).
 
-## Pasos
+## Steps
 
-1. **Validar que el spec existe**
-   - Buscar en `specs/*<nombre>/` (el nombre puede tener prefijo de fecha)
-   - Si no existe, sugerir usar `/spec <nombre>` para crearlo
+1. **Verify the spec exists**
+   - Look in `specs/*<name>/` (the name may have a date prefix)
+   - If it doesn't exist, suggest `/spec <name>` to create it
 
-2. **Cargar contexto completo**
-   Lee los siguientes archivos en orden:
-   - `SESSION.md` → Estado actual, archivos clave, decisiones
-   - `PHASES.md` → Fase actual y próximas tareas
-   - `SPEC.md` → Contexto del problema (si es necesario)
+2. **Load full context**
+   Read these files in order:
+   - `SESSION.md` -> current state, key files, decisions
+   - `PHASES.md` -> current phase and next tasks
+   - `SPEC.md` -> problem context (if needed)
 
-3. **Identificar próxima tarea**
-   - Buscar la primera tarea no completada `[ ]` en PHASES.md
-   - Identificar la fase actual
+3. **Identify the next task**
+   - Find the first unchecked `[ ]` task in PHASES.md
+   - Identify the current phase
 
-4. **Mostrar resumen de contexto con tiempos**
+4. **Show a context summary with timing**
    ```
-   Continuando: caching-strategy
+   Continuing: caching-strategy
 
-   Tiempos:
-   - Inicio: 2026-02-01 19:00
-   - Transcurrido: 2h 30m
+   Timing:
+   - Started: 2026-02-01 19:00
+   - Elapsed: 2h 30m
 
-   Estado actual:
-   - Fase 2 de 4: Optimizar Catálogos
-   - Última tarea completada: "Aumentar TTL de BrandService"
-   - Próxima tarea: "Agregar invalidación de cache"
+   Current state:
+   - Phase 2 of 4: Optimize catalogs
+   - Last task completed: "Raise BrandService TTL"
+   - Next task: "Add cache invalidation"
 
-   Archivos clave para esta sesión:
+   Key files for this session:
    - src/modules/brand/application/services/BrandService.ts
    - src/shared/events/handlers.ts
 
-   Decisiones previas:
-   - TTL de 1 hora para catálogos
+   Prior decisions:
+   - 1-hour TTL for catalogs
 
-   ¿Listo para continuar con la próxima tarea?
+   Ready to continue with the next task?
    ```
 
-5. **Preguntar cómo proceder**
-   - Continuar con la próxima tarea
-   - Ver el SPEC.md completo
-   - Ver todas las fases
+5. **Ask how to proceed**
+   - Continue with the next task
+   - View the full SPEC.md
+   - View all phases
 
-## Al finalizar la sesión
+## At the end of the session
 
-Recuerda actualizar SESSION.md con:
-- Tareas completadas
-- Notas importantes
-- Próximos pasos
+Remember to update SESSION.md with:
+- Tasks completed
+- Important notes
+- Next steps
 
-## Cuando el spec esté completo
+## When the spec is complete
 
-Usa `/spec-done <nombre>` para:
-- Registrar fecha/hora de finalización
-- Calcular duración total
-- Verificar checklist de aceptación
+Use `/spec-done <name>` to:
+- Record the finish date/time
+- Compute total duration
+- Verify the acceptance checklist

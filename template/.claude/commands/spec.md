@@ -1,31 +1,31 @@
-Crea una nueva especificación de feature usando el sistema de planificación.
+Create a new feature spec using the planning system.
 
-El nombre del feature se pasa en $ARGUMENTS (ejemplo: `/spec drizzle-validation`).
+The feature name is passed in $ARGUMENTS (example: `/spec drizzle-validation`).
 
-## Pasos
+## Steps
 
-1. **Validar argumentos**
-   - Si no se proporciona nombre, pedir uno al usuario
-   - El nombre debe ser kebab-case (ej: `add-user-auth`, `fix-n1-queries`)
+1. **Validate arguments**
+   - If no name is given, ask the user for one
+   - The name must be kebab-case (e.g. `add-user-auth`, `fix-n1-queries`)
 
-2. **Crear carpeta `specs/` si no existe**
-   - Si el proyecto no tiene `specs/`, crearla en la raíz del proyecto
+2. **Create the `specs/` folder if missing**
+   - If the project has no `specs/`, create it at the project root
 
-3. **Crear estructura**
-   Crea la carpeta con formato `YYYYMMDD-HHMM-<nombre>` en `specs/`:
+3. **Create the structure**
+   Create the folder named `YYYYMMDD-HHMM-<name>` under `specs/`:
    ```
-   specs/YYYYMMDD-HHMM-<nombre>/
+   specs/YYYYMMDD-HHMM-<name>/
    ├── SPEC.md
    ├── PHASES.md
    ├── SESSION.md
    └── DONE.md
    ```
 
-4. **Generar archivos desde templates inline**
-   Reemplaza en todos los archivos:
-   - `{{FEATURE_NAME}}` → nombre del feature en Title Case
-   - `{{DATETIME}}` → fecha y hora actual en formato `YYYY-MM-DD HH:mm`
-   - `{{DATE}}` → fecha actual (YYYY-MM-DD)
+4. **Generate the files from the inline templates**
+   Replace in every file:
+   - `{{FEATURE_NAME}}` -> feature name in Title Case
+   - `{{DATETIME}}` -> current date and time as `YYYY-MM-DD HH:mm`
+   - `{{DATE}}` -> current date (`YYYY-MM-DD`)
 
 ### SPEC.md
 
@@ -33,276 +33,239 @@ El nombre del feature se pasa en $ARGUMENTS (ejemplo: `/spec drizzle-validation`
 # {{FEATURE_NAME}}
 
 > **Status:** `IN_PROGRESS`
-> **Inicio:** {{DATETIME}}
-> **Fin:** -
+> **Started:** {{DATETIME}}
+> **Finished:** -
 
 ---
 
-## Resumen
+## Summary
 
-<!-- 2-3 oraciones que explican QUÉ es este cambio -->
+<!-- 2-3 sentences explaining WHAT this change is -->
 
-## Problema
+## Problem
 
-<!-- ¿Qué problema estamos resolviendo? ¿Por qué es importante ahora? -->
+<!-- What problem are we solving? Why does it matter now? -->
 
-## Propuesta
+## Proposal
 
-<!-- Descripción de alto nivel de la solución -->
+<!-- High-level description of the solution -->
 
 ## Goals
 
-<!-- ✅ Qué SÍ vamos a hacer -->
+<!-- What we WILL do -->
 - [ ] Goal 1
 - [ ] Goal 2
 
 ## Non-Goals
 
-<!-- ❌ Qué NO vamos a hacer (y por qué) -->
-- No haremos X porque...
+<!-- What we will NOT do (and why) -->
+- We won't do X because...
 
-## Contexto Técnico
+## Technical Context
 
-<!-- Referencias a documentación, código existente, decisiones previas -->
+<!-- References to docs, existing code, prior decisions -->
 
-| Recurso | Ubicación |
-|---------|-----------|
-| Doc relevante | `path/to/file.md` |
-| Código relacionado | `src/modules/...` |
+| Resource | Location |
+|----------|----------|
+| Relevant doc | `path/to/file.md` |
+| Related code | `src/modules/...` |
 
-## Alternativas Consideradas
+## Alternatives Considered
 
-### Opción A: {{nombre}}
+### Option A: {{name}}
 - **Pros:** ...
 - **Cons:** ...
 
-### Opción B: {{nombre}} (elegida)
+### Option B: {{name}} (chosen)
 - **Pros:** ...
 - **Cons:** ...
 
-**Decisión:** Elegimos B porque...
+**Decision:** We chose B because...
 
-## Riesgos y Mitigaciones
+## Risks and Mitigations
 
-| Riesgo | Probabilidad | Impacto | Mitigación |
-|--------|--------------|---------|------------|
-| ... | Alta/Media/Baja | Alto/Medio/Bajo | ... |
+| Risk | Likelihood | Impact | Mitigation |
+|------|------------|--------|------------|
+| ... | High/Med/Low | High/Med/Low | ... |
 
-## Referencias
+## References
 
-- [Link a RFC/ADR relacionado]()
-- [Link a issue/ticket]()
+- [Link to related RFC/ADR]()
+- [Link to issue/ticket]()
 ```
 
 ### PHASES.md
 
 ```markdown
-# Fases - {{FEATURE_NAME}}
+# Phases - {{FEATURE_NAME}}
 
-> Progreso: **0/N fases completadas**
-> Última actualización: {{DATETIME}}
+> Progress: **0/N phases complete**
+> Last updated: {{DATETIME}}
 
 ---
 
-## Fase 1: {{Nombre de la fase}}
+## Phase 1: {{Phase name}}
 
-> **Estado:** `PENDIENTE`
-> **Criterio de éxito:** {{Cómo sabemos que está completa}}
+> **Status:** `PENDING`
+> **Success criterion:** {{How we know it's complete}}
 
-### Tareas
+### Tasks
 
-- [ ] Tarea 1.1 - Descripción
-- [ ] Tarea 1.2 - Descripción
-- [ ] Tarea 1.3 - Descripción
+- [ ] Task 1.1 - Description
+- [ ] Task 1.2 - Description
 
-### Verificación
+### Verification
 
 \`\`\`bash
-# Comando(s) para verificar que la fase está completa
+# Command(s) to verify the phase is complete
 \`\`\`
 
-### Notas
+### Notes
 
-<!-- Observaciones durante la ejecución -->
+<!-- Observations during execution -->
 
 ---
 
-## Fase 2: {{Nombre de la fase}}
+## Phase 2: {{Phase name}}
 
-> **Estado:** `PENDIENTE`
-> **Criterio de éxito:** {{Cómo sabemos que está completa}}
-> **Depende de:** Fase 1
+> **Status:** `PENDING`
+> **Success criterion:** {{How we know it's complete}}
+> **Depends on:** Phase 1
 
-### Tareas
+### Tasks
 
-- [ ] Tarea 2.1 - Descripción
-- [ ] Tarea 2.2 - Descripción
+- [ ] Task 2.1 - Description
 
-### Verificación
+### Verification
 
 \`\`\`bash
-# Comando(s) para verificar
+# Command(s) to verify
 \`\`\`
 
-### Notas
+### Notes
 
 ---
 
-## Fase 3: {{Nombre de la fase}}
+## Progress Summary
 
-> **Estado:** `PENDIENTE`
-> **Criterio de éxito:** {{Cómo sabemos que está completa}}
-> **Depende de:** Fase 2
-
-### Tareas
-
-- [ ] Tarea 3.1 - Descripción
-
-### Verificación
-
-\`\`\`bash
-# Comando(s) para verificar
-\`\`\`
-
-### Notas
-
----
-
-## Resumen de Progreso
-
-| Fase | Estado | Tareas | Verificado |
-|------|--------|--------|------------|
-| 1. {{nombre}} | ⏳ | 0/3 | - |
-| 2. {{nombre}} | ⏳ | 0/2 | - |
-| 3. {{nombre}} | ⏳ | 0/1 | - |
+| Phase | Status | Tasks | Verified |
+|-------|--------|-------|----------|
+| 1. {{name}} | pending | 0/2 | - |
+| 2. {{name}} | pending | 0/1 | - |
 ```
 
 ### SESSION.md
 
 ```markdown
-# Contexto de Sesión - {{FEATURE_NAME}}
+# Session Context - {{FEATURE_NAME}}
 
-> **Propósito:** Información para retomar el trabajo rápidamente en cada sesión.
-> Lee este archivo al inicio de cada sesión de trabajo.
+> **Purpose:** Information to resume work quickly each session.
+> Read this file at the start of every work session.
 
 ---
 
-## Estado Actual
+## Current State
 
-**Fase actual:** 1 de N
-**Fecha de inicio:** {{DATE}}
-**Última tarea completada:** -
-**Próxima tarea:** ...
-**Fecha de cierre:** (pendiente)
+**Current phase:** 1 of N
+**Start date:** {{DATE}}
+**Last task completed:** -
+**Next task:** ...
 
-## Archivos Clave
+## Key Files
 
-<!-- Archivos que debes tener en contexto para trabajar -->
+| File | Why it's relevant |
+|------|-------------------|
+| `path/to/file.ts` | Contains... |
 
-| Archivo | Por qué es relevante |
-|---------|---------------------|
-| `path/to/file.ts` | Contiene... |
-
-## Comandos Frecuentes
+## Frequent Commands
 
 \`\`\`bash
-# Ejecutar tests relacionados
-pnpm test --grep "feature-name"
-
-# Verificar tipos
-pnpm typecheck
+# Run related tests
+npm test -- --grep "feature-name"
 \`\`\`
 
-## Decisiones Tomadas
+## Decisions Made
 
-<!-- Decisiones que se tomaron durante el desarrollo -->
-
-| Fecha | Decisión | Razón |
-|-------|----------|-------|
+| Date | Decision | Reason |
+|------|----------|--------|
 | {{DATE}} | ... | ... |
 
-## Bloqueadores / Pendientes
+## Blockers / Open Items
 
-- [ ] Pendiente: ...
+- [ ] Pending: ...
 
-## Notas de Sesiones Anteriores
+## Notes from Previous Sessions
 
-### Sesión {{DATETIME}}
-- Completamos: ...
-- Próximos pasos: ...
+### Session {{DATETIME}}
+- Completed: ...
+- Next steps: ...
 ```
 
 ### DONE.md
 
 ```markdown
-# Checklist de Aceptación - {{FEATURE_NAME}}
+# Acceptance Checklist - {{FEATURE_NAME}}
 
-> **Propósito:** Verificar que el feature cumple todos los criterios antes de considerarlo DONE.
-> Todos los items deben estar marcados antes de cerrar.
+> **Purpose:** Verify the feature meets every criterion before calling it DONE.
+> All items must be checked before closing.
 >
-> **Finalizado:** -
+> **Finished:** -
 
 ---
 
-## Criterios Funcionales
+## Functional Criteria
 
-- [ ] Criterio 1: ...
-- [ ] Criterio 2: ...
-- [ ] Criterio 3: ...
+- [ ] Criterion 1: ...
+- [ ] Criterion 2: ...
 
-## Criterios Técnicos
+## Technical Criteria
 
-### Calidad de Código
-- [ ] Typecheck pasa sin errores
-- [ ] Lint pasa sin errores
-- [ ] No hay `any` explícitos
-- [ ] No hay type assertions (`as`)
+### Code Quality
+- [ ] Typecheck passes
+- [ ] Lint passes
+- [ ] No stray debug code
 
 ### Testing
-- [ ] Tests unitarios escritos y pasando
-- [ ] Tests de integración escritos y pasando
-- [ ] Cobertura >= 70%
+- [ ] Unit tests written and passing
+- [ ] Integration tests written and passing
 
 ### Performance
-- [ ] No hay N+1 queries
-- [ ] Queries están paginadas donde aplica
-- [ ] Tiempos de respuesta dentro de límites
+- [ ] No N+1 queries
+- [ ] Queries paginated where applicable
 
-### Seguridad
-- [ ] Inputs validados con Zod
-- [ ] Permisos verificados
-- [ ] No hay datos sensibles en logs
+### Security
+- [ ] Inputs validated
+- [ ] Permissions checked
+- [ ] No sensitive data in logs
 
-## Documentación
+## Documentation
 
-- [ ] SPEC.md actualizado con decisiones finales
-- [ ] PHASES.md con todas las fases completadas
-- [ ] Código auto-documentado (nombres claros)
-- [ ] API contracts actualizados (si aplica)
+- [ ] SPEC.md updated with final decisions
+- [ ] PHASES.md with all phases complete
+- [ ] Code is self-documenting (clear names)
 
-## Verificación Final
+## Final Verification
 
-**Resultado:** ⏳ Pendiente
+**Result:** pending
 
-## Notas de Cierre
+## Closing Notes
 
-### Deuda Técnica Identificada
+### Technical Debt Identified
 - [ ] TODO: ...
 
-### Mejoras Futuras
-- Idea para siguiente iteración: ...
+### Future Improvements
+- Idea for next iteration: ...
 ```
 
-5. **Mostrar resumen**
-   Informa al usuario:
-   - Ubicación de los archivos creados
-   - Fecha/hora de inicio registrada
-   - Próximos pasos recomendados:
-     1. Editar SPEC.md con el problema y propuesta
-     2. Definir las fases en PHASES.md
-     3. Comenzar a trabajar
+5. **Show a summary**
+   Tell the user:
+   - Location of the created files
+   - Recorded start date/time
+   - Recommended next steps:
+     1. Fill in SPEC.md with the problem and proposal
+     2. Define the phases in PHASES.md
+     3. Start working
 
-6. **Ofrecer ayuda inicial**
-   Pregunta si quiere:
-   - Ayuda para completar el SPEC.md
-   - Definir las fases basado en una descripción del trabajo
+6. **Offer initial help**
+   Ask if they want help filling in SPEC.md or defining the phases from a
+   description of the work.
