@@ -32,20 +32,34 @@ template/
 │   │   ├── confirm-push.py       # ask before push / PR (deploy-triggering)
 │   │   ├── no-emoji-copy.py      # example: deny emojis in customer-facing files
 │   │   └── websearch-add-year.py # bias web searches toward recent results
-│   └── commands/
-│       ├── spec.md               # /spec - start a planned feature
-│       ├── spec-continue.md      # /spec-continue - resume with full context
-│       ├── spec-done.md          # /spec-done - close it out
-│       ├── spec-status.md        # /spec-status - where things stand
-│       └── memory-gc.md          # /memory-gc - consolidate + dedupe memory
+│   ├── commands/
+│   │   ├── spec.md               # /spec - start a planned feature
+│   │   ├── spec-continue.md      # /spec-continue - resume with full context
+│   │   ├── spec-done.md          # /spec-done - close it out
+│   │   ├── spec-status.md        # /spec-status - where things stand
+│   │   └── memory-gc.md          # /memory-gc - consolidate + dedupe memory
+│   └── agents/
+│       ├── code-reviewer.md      # subagent: review a diff in an isolated context
+│       └── researcher.md         # subagent: web/codebase research, cited synthesis
 ├── specs/
 │   ├── _templates/               # SPEC / PHASES / SESSION / DONE
 │   └── EXAMPLE-add-rate-limiting/ # a filled, mid-flight worked example
-└── memory/                       # starter index + one-fact template
+├── memory/                       # starter index + one-fact template
+└── examples/                     # opt-in patterns to adapt (not auto-installed):
+    ├── CLAUDE.root.example.md     #   root workspace instructions
+    ├── CLAUDE.subrepo.example.md  #   per-app instructions
+    ├── client-README.example.md   #   clients/<slug>/ status file
+    ├── anti-patterns.example.md   #   an enforced "do NOT" list
+    ├── rules/                     #   .claude/rules/ workspace runbook
+    └── commands/                  #   ops commands (deploy, diagnose)
 docs/
 ├── HARNESS.md                    # the harness-engineering philosophy
+├── WORKSPACE-STRUCTURE.md        # how to lay out a multi-project workspace
+├── WRITING-CLAUDE-MD.md          # how to write the instruction layer
 ├── SPEC-SYSTEM.md                # the spec planning system + how to use it
 ├── AGENT-ORCHESTRATION.md        # multi-agent patterns (and when NOT to)
+├── RULES-AND-OPS.md              # rules files + ops commands
+├── OBSERVABILITY.md              # OTEL telemetry: see your token/cost usage
 └── MEMORY-SYSTEM.md              # the file-based memory methodology
 ```
 
@@ -61,8 +75,9 @@ you must read hook stdin as **UTF-8** or non-ASCII input fails silently.
 ./install.ps1 -Target C:\path\to\project    # Windows / PowerShell
 ```
 
-This copies `.claude/hooks/`, `.claude/commands/`, `.claude/settings.json` (it
-won't clobber an existing one), and `specs/_templates/`. Then:
+This copies `.claude/hooks/`, `.claude/commands/`, `.claude/agents/`,
+`.claude/settings.json` (it won't clobber an existing one), and `specs/_templates/`.
+The `template/examples/` patterns are opt-in - copy what fits by hand. Then:
 
 1. Append [`gitignore-snippet.txt`](gitignore-snippet.txt) to your project's `.gitignore`.
 2. Seed your memory from `template/memory/` - see [`docs/MEMORY-SYSTEM.md`](docs/MEMORY-SYSTEM.md).
@@ -72,8 +87,12 @@ won't clobber an existing one), and `specs/_templates/`. Then:
 ## Docs
 
 - [`docs/HARNESS.md`](docs/HARNESS.md) - the harness-engineering model (guides + sensors) and how to extend it.
+- [`docs/WORKSPACE-STRUCTURE.md`](docs/WORKSPACE-STRUCTURE.md) - how to lay out a multi-project workspace so the agent never gets lost.
+- [`docs/WRITING-CLAUDE-MD.md`](docs/WRITING-CLAUDE-MD.md) - how to write the instruction layer (ADRs, anti-patterns, the root + per-subrepo hierarchy).
 - [`docs/SPEC-SYSTEM.md`](docs/SPEC-SYSTEM.md) - the spec-driven planning system, the four files, and how to run it across sessions.
 - [`docs/AGENT-ORCHESTRATION.md`](docs/AGENT-ORCHESTRATION.md) - when (and when not) to use multiple agents; the patterns that hold up.
+- [`docs/RULES-AND-OPS.md`](docs/RULES-AND-OPS.md) - rules files and ops commands for repeatable procedures.
+- [`docs/OBSERVABILITY.md`](docs/OBSERVABILITY.md) - turn on OTEL telemetry to see token/cost usage.
 - [`docs/MEMORY-SYSTEM.md`](docs/MEMORY-SYSTEM.md) - the file-based memory methodology and `/memory-gc`.
 
 ## Customize

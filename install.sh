@@ -12,12 +12,13 @@ TARGET="${1:-$(pwd)}"
 [ -d "$TARGET" ] || { echo "Target does not exist: $TARGET" >&2; exit 1; }
 echo "Installing harness into: $TARGET"
 
-# 1. Hooks + commands (additive)
-mkdir -p "$TARGET/.claude/hooks" "$TARGET/.claude/commands"
+# 1. Hooks + commands + agents (additive)
+mkdir -p "$TARGET/.claude/hooks" "$TARGET/.claude/commands" "$TARGET/.claude/agents"
 cp "$SRC/.claude/hooks/"* "$TARGET/.claude/hooks/"
 cp "$SRC/.claude/commands/"* "$TARGET/.claude/commands/"
+cp "$SRC/.claude/agents/"* "$TARGET/.claude/agents/"
 chmod +x "$TARGET/.claude/hooks/"*.py 2>/dev/null || true
-echo "  + .claude/hooks/ and .claude/commands/"
+echo "  + .claude/hooks/, .claude/commands/, .claude/agents/"
 
 # 2. settings.json - don't clobber an existing one
 if [ -f "$TARGET/.claude/settings.json" ]; then
@@ -40,4 +41,6 @@ Done. Next steps:
   2. The memory system lives in Claude Code's auto-memory dir, not the repo.
      See docs/MEMORY-SYSTEM.md. Seed your MEMORY.md from template/memory/.
   3. Hooks require Python on PATH. Test: open Claude Code and try 'git push'.
+  4. Optional: adapt the opt-in patterns in template/examples/ (CLAUDE.md,
+     rules, ops commands) - see docs/WORKSPACE-STRUCTURE.md and RULES-AND-OPS.md.
 EOF

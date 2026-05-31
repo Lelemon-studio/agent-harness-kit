@@ -15,12 +15,14 @@ $src = Join-Path $kit "template"
 if (-not (Test-Path $Target)) { throw "Target does not exist: $Target" }
 Write-Host "Installing harness into: $Target" -ForegroundColor Cyan
 
-# 1. Hooks + commands (safe to copy - additive)
+# 1. Hooks + commands + agents (safe to copy - additive)
 New-Item -ItemType Directory -Force -Path (Join-Path $Target ".claude/hooks") | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $Target ".claude/commands") | Out-Null
+New-Item -ItemType Directory -Force -Path (Join-Path $Target ".claude/agents") | Out-Null
 Copy-Item (Join-Path $src ".claude/hooks/*") (Join-Path $Target ".claude/hooks") -Force
 Copy-Item (Join-Path $src ".claude/commands/*") (Join-Path $Target ".claude/commands") -Force
-Write-Host "  + .claude/hooks/ and .claude/commands/" -ForegroundColor Green
+Copy-Item (Join-Path $src ".claude/agents/*") (Join-Path $Target ".claude/agents") -Force
+Write-Host "  + .claude/hooks/, .claude/commands/, .claude/agents/" -ForegroundColor Green
 
 # 2. settings.json - don't clobber an existing one
 $dstSettings = Join-Path $Target ".claude/settings.json"
@@ -43,3 +45,5 @@ Write-Host "  1. Append gitignore-snippet.txt to your project's .gitignore"
 Write-Host "  2. The memory system lives in Claude Code's auto-memory dir, not the repo."
 Write-Host "     See docs/MEMORY-SYSTEM.md. Seed your MEMORY.md from template/memory/."
 Write-Host "  3. Hooks require Python on PATH. Test: open Claude Code and try 'git push'."
+Write-Host "  4. Optional: adapt the opt-in patterns in template/examples/ (CLAUDE.md,"
+Write-Host "     rules, ops commands) - see docs/WORKSPACE-STRUCTURE.md and RULES-AND-OPS.md."
