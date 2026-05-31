@@ -9,6 +9,42 @@ memory methodology that don't depend on the agent "remembering" to behave.
 > everything you wrap around it to make it reliable. This kit is that wrapper,
 > extracted from a real one-person studio's daily setup.
 
+## Quickstart - let your agent set it up
+
+The fastest path: paste this prompt into your coding agent (Claude Code, etc.) from
+inside your project. It installs the kit **and adapts it to your codebase** - the
+part a human usually skips.
+
+```
+Set up "agent-harness-kit" in this project. Steps:
+
+1. Install it. Clone the kit into a temp folder and run its installer here:
+     git clone https://github.com/Lelemon-studio/agent-harness-kit .ahk-setup
+     bash .ahk-setup/install.sh .          # Windows: .\.ahk-setup\install.ps1 -Target .
+   That adds .claude/{hooks,commands,agents}, settings.json, and specs/_templates.
+   Append .ahk-setup/gitignore-snippet.txt to my .gitignore (skip lines already there).
+
+2. Adapt it to THIS project - leave no placeholders:
+   - Inspect the codebase: package manager, dev/build/test/lint commands, stack, layout.
+   - Write a root CLAUDE.md from .ahk-setup/template/examples/CLAUDE.root.example.md with
+     my real stack, commands, and conventions. If it's a multi-project workspace, add a
+     per-subrepo CLAUDE.md too (CLAUDE.subrepo.example.md).
+   - Review the no-emoji-copy.py hook: keep it only if I have customer-facing copy files;
+     otherwise narrow its scope to my file types or remove it. Tell me what you changed.
+   - Seed memory/MEMORY.md following .ahk-setup/docs/MEMORY-SYSTEM.md with what you learned.
+
+3. Verify: confirm Python is on PATH and the hooks are wired in .claude/settings.json.
+   Have me test by attempting a git push - the confirm-push hook should fire.
+
+4. Delete the .ahk-setup folder. Then summarize what you installed and what I should
+   customize next.
+
+Read the kit's docs/ as needed: HARNESS.md (the model behind all this),
+WRITING-CLAUDE-MD.md, MEMORY-SYSTEM.md, SPEC-SYSTEM.md.
+```
+
+Prefer to do it by hand? See [Install](#install) below.
+
 ## Why this exists
 
 Most "prompt the agent to be careful" advice fails the same way: the model forgets,
