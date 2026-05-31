@@ -59,6 +59,13 @@ showing what an adopted harness looks like: root `CLAUDE.md`, per-app rules, a
 workspace runbook, and anti-patterns, all cohering. Read it next to the blank
 templates in `template/examples/`.
 
+## Starter library
+
+[`library/`](library/) has lift-and-adapt starter rules + anti-patterns per language
+(TypeScript on Bun, Rust, Go), cross-language [engineering principles](library/rules/engineering-principles.md),
+and a curated list of [recommended skills](library/SKILLS.md). When adopting the harness,
+copy the relevant rules into the project's `CLAUDE.md` and install the skills for its stack.
+
 ## Installing the kit into another project
 
 See [`README.md`](README.md) - there's a copy-paste setup prompt under *Quickstart*,

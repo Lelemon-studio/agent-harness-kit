@@ -148,6 +148,15 @@ complete, internally-consistent **worked example** - a fictional multi-tenant Sa
 with its root `CLAUDE.md`, per-app rules, workspace runbook, and anti-patterns all
 filled in and cohering. Read it next to the templates to see what "good" looks like.
 
+## Starter library
+
+[`library/`](library/) is a lift-and-adapt collection: opinionated **starter rules +
+anti-patterns** per language (TypeScript on Bun, Rust, Go) plus cross-language
+[engineering principles](library/rules/engineering-principles.md), and a curated,
+source-checked list of [recommended skills](library/SKILLS.md) to install. It also
+makes the case for [why these languages pair well with coding agents](library/README.md#why-these-languages-pair-well-with-coding-agents)
+(fast, deterministic feedback = better sensors).
+
 ## Install
 
 ```bash
