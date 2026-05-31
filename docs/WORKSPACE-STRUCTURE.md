@@ -62,6 +62,24 @@ workspace/
 4. **Client/business context lives in files, not in the agent's head.** A
    `clients/<slug>/README.md` per client means the agent never guesses - it reads.
 
+## What actually auto-loads (Claude Code)
+
+The "loads just-in-time" idea above isn't aspirational - it's how Claude Code behaves.
+But the nesting applies to only *some* of the harness, so be exact about which:
+
+| Layer | Nests into subdirectories? |
+|---|---|
+| `CLAUDE.md` | **Yes.** Ancestor files load at launch; a subdirectory's `CLAUDE.md` loads on demand the moment Claude reads a file in that subtree. |
+| `.claude/rules/*.md` | **Yes.** Auto-discovered; a rule with a `paths:` glob loads only for matching files (see [RULES-AND-OPS.md](RULES-AND-OPS.md)). |
+| `.claude/settings.json` (hooks, permissions) | **No.** Loaded only from the directory you start Claude in - it does not cascade to or from subdirectories. |
+| `.claude/commands/`, `.claude/agents/` | **No path-scoping.** Discovered at project root + user level; a subfolder organizes but doesn't scope them to a subtree. |
+
+So: put **per-subrepo instructions in that subrepo's `CLAUDE.md`** (and path-scoped
+`.claude/rules/`) - those follow Claude into the subtree. Keep **one
+`.claude/settings.json` at the project root** for hooks and permissions; per-subrepo
+settings only apply if you launch Claude from inside that subrepo. Anthropic documents
+the full pattern in its [monorepo / large-codebases guide](https://code.claude.com/docs/en/large-codebases).
+
 ## Templates to copy
 
 - [`template/examples/CLAUDE.root.example.md`](../template/examples/CLAUDE.root.example.md) - a root workspace CLAUDE.md

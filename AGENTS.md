@@ -5,6 +5,10 @@ Gemini CLI, or another) working in or adopting this repository. `AGENTS.md` is t
 cross-tool convention; if your tool reads a different file (`CLAUDE.md`, `.cursor/rules`,
 `GEMINI.md`), the content is the same - only the filename differs.
 
+> **On Claude Code:** it reads `CLAUDE.md`, not `AGENTS.md`. Point it here with a
+> `CLAUDE.md` containing the single line `@AGENTS.md` (an import), or a symlink
+> (`ln -s AGENTS.md CLAUDE.md`). One source of truth, both tools.
+
 ## What this repo is
 
 `agent-harness-kit` - a reproducible **harness** for working with coding agents.

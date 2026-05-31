@@ -92,6 +92,12 @@ can pick up; it points at the same `docs/`. If you adopt the methodology under a
 non-Claude tool, keep the portable docs as-is and re-implement the mechanics with
 your tool's primitives.
 
+> **Claude Code reads `CLAUDE.md`, not `AGENTS.md`.** If a repo standardizes on
+> `AGENTS.md`, give Claude Code a `CLAUDE.md` that imports it - `@AGENTS.md` on its own
+> line (imports recurse up to four hops) - or a symlink (`ln -s AGENTS.md CLAUDE.md`; on
+> Windows the import is easier than a symlink). That way both tools read one source of
+> truth instead of two drifting copies.
+
 ---
 
 ## What to version and what not to

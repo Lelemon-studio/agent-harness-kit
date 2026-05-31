@@ -6,10 +6,10 @@ repeatable procedures.
 
 ## Rules files (`.claude/rules/`)
 
-Some guidance is too long for `CLAUDE.md` but too important to leave implicit -
-deployment procedure, on-call etiquette, how this workspace handles migrations.
-Put each such topic in its own file under `.claude/rules/` and reference it from
-`CLAUDE.md`.
+Some guidance is too long for `CLAUDE.md` but doesn't belong in every session's
+context - deployment procedure, on-call etiquette, how this repo handles migrations.
+In Claude Code, `.claude/rules/` is a built-in mechanism for exactly this: one topic
+per markdown file, **auto-discovered** (recursively, so you can group them in subfolders).
 
 ```
 .claude/rules/
@@ -17,15 +17,40 @@ Put each such topic in its own file under `.claude/rules/` and reference it from
 └── ops-patterns.md    # deploy/rollback/incident procedure
 ```
 
-Why split them out of CLAUDE.md:
-- **Loaded on demand, not always.** CLAUDE.md is in every session's context; a rules
-  file can be pointed to ("for deploys, follow `.claude/rules/ops-patterns.md`") and
-  read only when relevant. Keeps the always-on context lean.
-- **One topic per file** is easier to maintain and to get right than one giant doc.
+How they load (in Claude Code) - and this is the part to get right:
 
-A rules file is just markdown - structure it like a runbook: the procedure, the
+- **A rule with no `paths:` frontmatter loads at launch**, at the same priority as
+  `CLAUDE.md`. Use it for guidance that's always relevant.
+- **A rule with a `paths:` glob loads only when Claude touches matching files** - the
+  real way to keep always-on context lean. It sits dormant until it's relevant:
+
+```markdown
+---
+paths:
+  - "src/api/**/*.ts"
+---
+
+# API rules
+- Every endpoint validates its input.
+- Use the standard error envelope.
+```
+
+You don't have to reference rules from `CLAUDE.md` - they're discovered automatically.
+`~/.claude/rules/` applies a set to every project, and the directory supports symlinks
+for sharing rules across repos.
+
+Why split topics out of `CLAUDE.md`:
+- **One topic per file** is easier to maintain than one giant doc.
+- **`paths:` scoping beats a big always-on file** - in a monorepo, the API rules don't
+  weigh on a frontend session.
+
+A rule file is just markdown - structure it like a runbook: the procedure, the
 preconditions, the failure modes. See
 [`template/examples/rules/workspace.example.md`](../template/examples/rules/workspace.example.md).
+
+> **Tool note.** `.claude/rules/` is a Claude Code feature. Under another agent the same
+> idea (split standing guidance into topic files) still applies - you reference or import
+> them from that tool's instruction file instead of relying on auto-discovery.
 
 ## Ops commands (slash commands for procedures)
 
