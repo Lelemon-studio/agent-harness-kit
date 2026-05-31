@@ -9,6 +9,11 @@ memory methodology that don't depend on the agent "remembering" to behave.
 > everything you wrap around it to make it reliable. This kit is that wrapper,
 > extracted from a real one-person studio's daily setup.
 
+The mechanics (hooks, slash commands) are built for Claude Code, but the methodology
+in `docs/` is tool-agnostic - any coding agent (opencode, Codex, Cursor, Gemini CLI)
+can read it. [`AGENTS.md`](AGENTS.md) is the neutral entry point; see the portability
+split in [`docs/HARNESS.md`](docs/HARNESS.md).
+
 ## Quickstart - let your agent set it up
 
 The fastest path: paste this prompt into your coding agent (Claude Code, etc.) from

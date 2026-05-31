@@ -66,6 +66,34 @@ your stack already has. You can't improve a harness you can't see.
 
 ---
 
+## Portability across agents
+
+These docs are meant to be read and acted on by *any* coding agent (Claude Code,
+opencode, Codex, Cursor, Gemini CLI, ...), not just Claude Code. Two layers, with different portability:
+
+- **The methodology is portable.** The harness model (guides + sensors), the working
+  cycle, how to write the instruction layer, the memory system, and the spec system
+  are tool-agnostic ideas. Any agent that reads `docs/` benefits.
+- **The enforcement mechanics are Claude Code's.** Hooks (`settings.json`), slash
+  commands, agent frontmatter, and the `.claude/` layout are how *this* kit
+  implements the sensors and guides. Other tools have their own equivalents - or, for
+  deterministic hooks, sometimes none.
+
+The instruction layer is the same content under a different filename per tool. Map it:
+
+| Concept | Claude Code | opencode / Codex | Cursor | Gemini CLI |
+|---|---|---|---|---|
+| Root instructions | `CLAUDE.md` | `AGENTS.md` | `.cursor/rules` | `GEMINI.md` |
+| Guardrails | hooks (`settings.json`) | tool-specific / none | tool-specific | tool-specific |
+| Saved procedures | `/slash-commands` | tool-specific | tool-specific | tool-specific |
+
+This repo ships a root [`AGENTS.md`](../AGENTS.md) as a neutral entry point any agent
+can pick up; it points at the same `docs/`. If you adopt the methodology under a
+non-Claude tool, keep the portable docs as-is and re-implement the mechanics with
+your tool's primitives.
+
+---
+
 ## What to version and what not to
 
 `.claude/` is partially version-controlled on purpose (see `gitignore-snippet.txt`):
