@@ -1,4 +1,31 @@
-# agent-harness-kit
+<div align="center">
+
+<pre>
+██╗  ██╗ █████╗ ██████╗ ███╗   ██╗███████╗███████╗███████╗
+██║  ██║██╔══██╗██╔══██╗████╗  ██║██╔════╝██╔════╝██╔════╝
+███████║███████║██████╔╝██╔██╗ ██║█████╗  ███████╗███████╗
+██╔══██║██╔══██║██╔══██╗██║╚██╗██║██╔══╝  ╚════██║╚════██║
+██║  ██║██║  ██║██║  ██║██║ ╚████║███████╗███████║███████║
+╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚══════╝╚══════╝
+</pre>
+
+<h1>agent-harness-kit</h1>
+
+<p><b>Agent = Model + Harness.</b><br>
+Deterministic guardrails, a spec-driven planning system, and file-based memory<br>
+for coding agents — drop it into any project.</p>
+
+<p>
+<img src="https://img.shields.io/badge/license-MIT-1f1f1f?style=for-the-badge" alt="License: MIT">
+<img src="https://img.shields.io/badge/built_for-Claude_Code-D97757?style=for-the-badge" alt="Built for Claude Code">
+<img src="https://img.shields.io/badge/works_with-any_agent-2d2d2d?style=for-the-badge" alt="Works with any agent">
+</p>
+
+<p><a href="#quickstart">Quickstart</a> &middot; <a href="#docs">Docs</a> &middot; <a href="#install">Install</a> &middot; <a href="AGENTS.md">Any agent</a></p>
+
+</div>
+
+---
 
 A small, reproducible **harness** for working with coding agents (built for
 [Claude Code](https://www.anthropic.com/claude-code)). Drop it into any project to
@@ -14,11 +41,11 @@ in `docs/` is tool-agnostic - any coding agent (opencode, Codex, Cursor, Gemini 
 can read it. [`AGENTS.md`](AGENTS.md) is the neutral entry point; see the portability
 split in [`docs/HARNESS.md`](docs/HARNESS.md).
 
-## Quickstart - let your agent set it up
+## Quickstart
 
-The fastest path: paste this prompt into your coding agent (Claude Code, etc.) from
-inside your project. It installs the kit **and adapts it to your codebase** - the
-part a human usually skips.
+**Let your agent set it up.** The fastest path: paste this prompt into your coding
+agent (Claude Code, etc.) from inside your project. It installs the kit **and adapts
+it to your codebase** - the part a human usually skips.
 
 ```
 Set up "agent-harness-kit" in this project. Steps:
@@ -133,12 +160,14 @@ The `template/examples/` patterns are opt-in - copy what fits by hand. Then:
 
 ## Docs
 
-- [`docs/HARNESS.md`](docs/HARNESS.md) - the harness-engineering model (guides + sensors) and how to extend it.
+Any agent can start from [`AGENTS.md`](AGENTS.md) (the neutral entry point). The full set:
+
+- [`docs/HARNESS.md`](docs/HARNESS.md) - the harness-engineering model (guides + sensors), how to extend it, and the portability split.
 - [`docs/WAYS-OF-WORKING.md`](docs/WAYS-OF-WORKING.md) - **start here**: the product+engineering cycle the agent runs and guides you through, plus git practices.
+- [`docs/EFFECTIVE-USE.md`](docs/EFFECTIVE-USE.md) - running a session well: lean orchestrator, model selection (Haiku/Sonnet/Opus), context hygiene, worktrees, review against your rules.
 - [`docs/WORKSPACE-STRUCTURE.md`](docs/WORKSPACE-STRUCTURE.md) - how to lay out a multi-project workspace so the agent never gets lost.
 - [`docs/WRITING-CLAUDE-MD.md`](docs/WRITING-CLAUDE-MD.md) - how to write the instruction layer (ADRs, anti-patterns, the root + per-subrepo hierarchy).
 - [`docs/SPEC-SYSTEM.md`](docs/SPEC-SYSTEM.md) - the spec-driven planning system, the four files, and how to run it across sessions.
-- [`docs/EFFECTIVE-USE.md`](docs/EFFECTIVE-USE.md) - running a session well: lean orchestrator, model selection (Haiku/Sonnet/Opus), context hygiene, worktrees, review against your rules.
 - [`docs/AGENT-ORCHESTRATION.md`](docs/AGENT-ORCHESTRATION.md) - when (and when not) to use multiple agents; the patterns that hold up.
 - [`docs/RULES-AND-OPS.md`](docs/RULES-AND-OPS.md) - rules files and ops commands for repeatable procedures.
 - [`docs/OBSERVABILITY.md`](docs/OBSERVABILITY.md) - turn on OTEL telemetry to see token/cost usage.
