@@ -19,11 +19,13 @@ sensors correct it *after*.
    measure -> learn) you should run and guide the user through, plus git practices.
 2. [`docs/HARNESS.md`](docs/HARNESS.md) - the model behind it all, and the
    portability split (what's universal vs Claude Code-specific).
-3. [`docs/WRITING-CLAUDE-MD.md`](docs/WRITING-CLAUDE-MD.md),
+3. [`docs/EFFECTIVE-USE.md`](docs/EFFECTIVE-USE.md) - how to run a session well: lean
+   orchestrator, model selection, context hygiene, worktrees, review against your rules.
+4. [`docs/WRITING-CLAUDE-MD.md`](docs/WRITING-CLAUDE-MD.md),
    [`docs/MEMORY-SYSTEM.md`](docs/MEMORY-SYSTEM.md),
    [`docs/SPEC-SYSTEM.md`](docs/SPEC-SYSTEM.md) - the instruction, memory, and
    planning layers.
-4. [`docs/WORKSPACE-STRUCTURE.md`](docs/WORKSPACE-STRUCTURE.md),
+5. [`docs/WORKSPACE-STRUCTURE.md`](docs/WORKSPACE-STRUCTURE.md),
    [`docs/RULES-AND-OPS.md`](docs/RULES-AND-OPS.md),
    [`docs/AGENT-ORCHESTRATION.md`](docs/AGENT-ORCHESTRATION.md),
    [`docs/OBSERVABILITY.md`](docs/OBSERVABILITY.md) - structure, ops, multi-agent, telemetry.

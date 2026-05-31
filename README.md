@@ -81,7 +81,8 @@ template/
 │   │   ├── spec-continue.md      # /spec-continue - resume with full context
 │   │   ├── spec-done.md          # /spec-done - close it out
 │   │   ├── spec-status.md        # /spec-status - where things stand
-│   │   └── memory-gc.md          # /memory-gc - consolidate + dedupe memory
+│   │   ├── memory-gc.md          # /memory-gc - consolidate + dedupe memory
+│   │   └── rules-audit.md        # /rules-audit - check the project has good rules
 │   └── agents/
 │       ├── code-reviewer.md      # subagent: review a diff in an isolated context
 │       └── researcher.md         # subagent: web/codebase research, cited synthesis
@@ -99,6 +100,7 @@ template/
 docs/
 ├── HARNESS.md                    # the harness-engineering philosophy
 ├── WAYS-OF-WORKING.md            # start here: the day-to-day loop + git practices
+├── EFFECTIVE-USE.md              # running a session well: context, models, worktrees
 ├── WORKSPACE-STRUCTURE.md        # how to lay out a multi-project workspace
 ├── WRITING-CLAUDE-MD.md          # how to write the instruction layer
 ├── SPEC-SYSTEM.md                # the spec planning system + how to use it
@@ -136,6 +138,7 @@ The `template/examples/` patterns are opt-in - copy what fits by hand. Then:
 - [`docs/WORKSPACE-STRUCTURE.md`](docs/WORKSPACE-STRUCTURE.md) - how to lay out a multi-project workspace so the agent never gets lost.
 - [`docs/WRITING-CLAUDE-MD.md`](docs/WRITING-CLAUDE-MD.md) - how to write the instruction layer (ADRs, anti-patterns, the root + per-subrepo hierarchy).
 - [`docs/SPEC-SYSTEM.md`](docs/SPEC-SYSTEM.md) - the spec-driven planning system, the four files, and how to run it across sessions.
+- [`docs/EFFECTIVE-USE.md`](docs/EFFECTIVE-USE.md) - running a session well: lean orchestrator, model selection (Haiku/Sonnet/Opus), context hygiene, worktrees, review against your rules.
 - [`docs/AGENT-ORCHESTRATION.md`](docs/AGENT-ORCHESTRATION.md) - when (and when not) to use multiple agents; the patterns that hold up.
 - [`docs/RULES-AND-OPS.md`](docs/RULES-AND-OPS.md) - rules files and ops commands for repeatable procedures.
 - [`docs/OBSERVABILITY.md`](docs/OBSERVABILITY.md) - turn on OTEL telemetry to see token/cost usage.

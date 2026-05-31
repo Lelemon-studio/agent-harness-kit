@@ -12,10 +12,19 @@ are pointed at - not to rewrite it, and not to nitpick style a formatter would c
 
 1. Determine the scope. If reviewing a diff, run `git diff` (or `git diff --staged`)
    and review only what changed plus the code it directly affects.
-2. Read enough surrounding code to judge correctness - don't review a hunk in
+2. Load the project's own rules first. Read the root and nearest `CLAUDE.md`, any
+   anti-patterns list, and the wired hooks - these are the conventions this repo has
+   already committed to. Review the change against them, not just generic taste: a
+   violation of a written rule is a real finding.
+3. Read enough surrounding code to judge correctness - don't review a hunk in
    isolation if the bug could be in the interaction.
-3. Report findings ranked by severity. For each: the file:line, what's wrong, why it
-   matters, and the concrete fix.
+4. Report findings ranked by severity. For each: the file:line, what's wrong, why it
+   matters, and the concrete fix. Tag rule violations with the rule they break.
+
+If the project has **no** usable rules (no CLAUDE.md, no anti-patterns, no hooks), say
+so as its own finding - the change can't be checked against conventions that don't
+exist. Recommend running `/rules-audit` to seed a starter set from the code. Don't
+invent rules and grade against them; flag the gap.
 
 ## What to look for (in priority order)
 
