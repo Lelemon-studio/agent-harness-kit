@@ -52,6 +52,13 @@ See the portability table in [`docs/HARNESS.md`](docs/HARNESS.md#portability-acr
 - **Engineer out recurring mistakes** at the cheapest layer that prevents them
   (hook > written rule > memory) - the Hashimoto loop.
 
+## A worked example
+
+[`example/`](example/) is a complete, filled-in project (a fictional multi-tenant SaaS)
+showing what an adopted harness looks like: root `CLAUDE.md`, per-app rules, a
+workspace runbook, and anti-patterns, all cohering. Read it next to the blank
+templates in `template/examples/`.
+
 ## Installing the kit into another project
 
 See [`README.md`](README.md) - there's a copy-paste setup prompt under *Quickstart*,

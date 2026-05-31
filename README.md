@@ -141,6 +141,13 @@ The hooks double as worked examples of two things that are easy to get wrong:
 blocking actions belong in **PreToolUse** (PostToolUse can't block), and on Windows
 you must read hook stdin as **UTF-8** or non-ASCII input fails silently.
 
+## See it filled in
+
+The templates above are blank (`<placeholders>`). [`example/`](example/) is a
+complete, internally-consistent **worked example** - a fictional multi-tenant SaaS
+with its root `CLAUDE.md`, per-app rules, workspace runbook, and anti-patterns all
+filled in and cohering. Read it next to the templates to see what "good" looks like.
+
 ## Install
 
 ```bash
