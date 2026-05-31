@@ -24,6 +24,12 @@ workspace/
 
 ## How to work here
 
+Move work through the full cycle: discover -> define -> plan -> build -> verify ->
+ship -> measure -> learn. Don't just execute - guide me to the step I'm skipping
+(frame a vague ask before coding; keep verification and shipping honest). Scale the
+ceremony to the size of the work. (Methodology: agent-harness-kit
+`docs/WAYS-OF-WORKING.md`.)
+
 1. Identify the sub-project; read its `CLAUDE.md` before touching it.
 2. If the task touches a client, read `clients/<slug>/README.md` first.
 3. Check `specs/` for an in-progress spec related to the task.

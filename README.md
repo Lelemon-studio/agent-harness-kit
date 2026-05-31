@@ -39,7 +39,10 @@ Set up "agent-harness-kit" in this project. Steps:
 4. Delete the .ahk-setup folder. Then summarize what you installed and what I should
    customize next.
 
-Read the kit's docs/ as needed: HARNESS.md (the model behind all this),
+From now on, guide me through the product+engineering cycle in
+.ahk-setup/docs/WAYS-OF-WORKING.md (discover -> define -> plan -> build -> verify ->
+ship -> measure -> learn) - don't just execute; prompt me for the step I'm skipping.
+Read the kit's docs/ as needed: HARNESS.md (the model), WAYS-OF-WORKING.md,
 WRITING-CLAUDE-MD.md, MEMORY-SYSTEM.md, SPEC-SYSTEM.md.
 ```
 
@@ -90,6 +93,7 @@ template/
     └── commands/                  #   ops commands (deploy, diagnose)
 docs/
 ├── HARNESS.md                    # the harness-engineering philosophy
+├── WAYS-OF-WORKING.md            # start here: the day-to-day loop + git practices
 ├── WORKSPACE-STRUCTURE.md        # how to lay out a multi-project workspace
 ├── WRITING-CLAUDE-MD.md          # how to write the instruction layer
 ├── SPEC-SYSTEM.md                # the spec planning system + how to use it
@@ -123,6 +127,7 @@ The `template/examples/` patterns are opt-in - copy what fits by hand. Then:
 ## Docs
 
 - [`docs/HARNESS.md`](docs/HARNESS.md) - the harness-engineering model (guides + sensors) and how to extend it.
+- [`docs/WAYS-OF-WORKING.md`](docs/WAYS-OF-WORKING.md) - **start here**: the product+engineering cycle the agent runs and guides you through, plus git practices.
 - [`docs/WORKSPACE-STRUCTURE.md`](docs/WORKSPACE-STRUCTURE.md) - how to lay out a multi-project workspace so the agent never gets lost.
 - [`docs/WRITING-CLAUDE-MD.md`](docs/WRITING-CLAUDE-MD.md) - how to write the instruction layer (ADRs, anti-patterns, the root + per-subrepo hierarchy).
 - [`docs/SPEC-SYSTEM.md`](docs/SPEC-SYSTEM.md) - the spec-driven planning system, the four files, and how to run it across sessions.
