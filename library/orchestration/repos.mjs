@@ -18,8 +18,10 @@ import { fileURLToPath } from 'url';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 
-// Workspace root: where project repos live as siblings. Overridable via env for
-// portability; otherwise derived from this file's location (.../<root>/.claude/scripts/orchestration).
+// Workspace root: where project repos live as siblings. Set BROKER_WORKSPACE_ROOT to
+// point at it explicitly; otherwise it's derived as three levels up from this file
+// (assumes the broker lives at <workspace>/<dir>/<subdir>/). Use the env var when the
+// broker is installed at a different depth.
 const WORKSPACE_ROOT = process.env.BROKER_WORKSPACE_ROOT
   ? path.resolve(process.env.BROKER_WORKSPACE_ROOT)
   : path.resolve(HERE, '..', '..', '..');

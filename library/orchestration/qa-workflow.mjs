@@ -33,11 +33,14 @@ const repo = input.repo
 const spec = input.specPath ?? '(no spec)'
 const tasks = Array.isArray(input.tasks) ? input.tasks : []
 const globalSkipE2e = input.skipE2e === true
+// Path to the broker, relative to the workspace root where agents run. Override via
+// args.brokerPath if you install it elsewhere.
+const brokerPath = input.brokerPath ?? 'orchestration/workspace.mjs'
 
 if (!repo) { log('Missing args.repo (broker profile). Nothing to do.'); return { error: 'no repo' } }
 if (!tasks.length) { log('No tasks in args.tasks. Pass { repo, specPath, tasks: [...] }.'); return { error: 'no tasks' } }
 
-const BROKER = `node .claude/scripts/orchestration/workspace.mjs --repo ${repo}`
+const BROKER = `node ${brokerPath} --repo ${repo}`
 
 const PROVISION_SCHEMA = {
   type: 'object',
