@@ -1,11 +1,12 @@
 {
-  "_comment": "Resource broker project profiles. Copy this file to broker.config.json (gitignored) and fill in your real values. One key per project. The broker provisions an isolated workspace per worker: own git worktree, deterministic ports by index, own database cloned from a template, and an isolated Redis logical DB.",
+  "_comment": "Resource broker project profiles. Copy this file to broker.config.json (gitignored) and fill in your real values. One key per project. The broker provisions an isolated workspace per worker: own git worktree + deterministic port by index. The 'db' and 'redis' blocks are OPTIONAL — include 'db' only if you want a per-worker Postgres database (cloned from a template); include 'redis' only if you want a per-worker logical DB. With neither, you still get worktree + port isolation. maxWorkers caps concurrent workers (default 16).",
   "my-project": {
     "repoSubdir": "my-project",
     "worktreePrefix": "my-project-wt-",
     "baseBranch": "main",
     "webBase": 3100,
     "mcpBase": 4100,
+    "maxWorkers": 16,
     "copyFiles": [".env"],
     "pkgManager": { "bin": "~/.bun/bin/bun.exe", "installArgs": ["install", "--frozen-lockfile"] },
     "db": {
@@ -18,6 +19,6 @@
       "sourceDb": "app",
       "workerDbPrefix": "wt_"
     },
-    "redis": { "host": "localhost", "port": 6379, "maxLogicalDbs": 16 }
+    "redis": { "host": "localhost", "port": 6379 }
   }
 }
