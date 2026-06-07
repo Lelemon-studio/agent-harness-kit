@@ -9,4 +9,8 @@
 .claude/statsig/
 .claude/.credentials.json
 .claude/hooks/__pycache__/
+# Resource broker: real config (creds/ports) is local; only the .example is versioned.
+.claude/scripts/orchestration/broker.config.json
+# Ephemeral per-worker worktrees created by the broker.
+*-wt-[0-9]*/
 # --- end snippet ---

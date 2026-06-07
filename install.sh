@@ -34,6 +34,11 @@ mkdir -p "$TARGET/specs/_templates"
 cp "$SRC/specs/_templates/"* "$TARGET/specs/_templates/"
 echo "  + specs/_templates/"
 
+# 4. Orchestration broker (isolated workspace per parallel agent)
+mkdir -p "$TARGET/.claude/scripts/orchestration"
+cp "$KIT/library/orchestration/"* "$TARGET/.claude/scripts/orchestration/"
+echo "  + .claude/scripts/orchestration/ (resource broker - copy broker.config.example.json to broker.config.json)"
+
 cat <<'EOF'
 
 Done. Next steps:

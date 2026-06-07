@@ -39,6 +39,11 @@ New-Item -ItemType Directory -Force -Path (Join-Path $Target "specs/_templates")
 Copy-Item (Join-Path $src "specs/_templates/*") (Join-Path $Target "specs/_templates") -Force
 Write-Host "  + specs/_templates/" -ForegroundColor Green
 
+# 4. Orchestration broker (isolated workspace per parallel agent)
+New-Item -ItemType Directory -Force -Path (Join-Path $Target ".claude/scripts/orchestration") | Out-Null
+Copy-Item (Join-Path $kit "library/orchestration/*") (Join-Path $Target ".claude/scripts/orchestration") -Force
+Write-Host "  + .claude/scripts/orchestration/ (resource broker - copy broker.config.example.json to broker.config.json)" -ForegroundColor Green
+
 Write-Host ""
 Write-Host "Done. Next steps:" -ForegroundColor Cyan
 Write-Host "  1. Append gitignore-snippet.txt to your project's .gitignore"
