@@ -1,0 +1,23 @@
+{
+  "_comment": "Resource broker project profiles. Copy this file to broker.config.json (gitignored) and fill in your real values. One key per project. The broker provisions an isolated workspace per worker: own git worktree, deterministic ports by index, own database cloned from a template, and an isolated Redis logical DB.",
+  "my-project": {
+    "repoSubdir": "my-project",
+    "worktreePrefix": "my-project-wt-",
+    "baseBranch": "main",
+    "webBase": 3100,
+    "mcpBase": 4100,
+    "copyFiles": [".env"],
+    "pkgManager": { "bin": "~/.bun/bin/bun.exe", "installArgs": ["install", "--frozen-lockfile"] },
+    "db": {
+      "container": "my-project-db",
+      "host": "localhost",
+      "port": 5432,
+      "user": "postgres",
+      "password": "postgres",
+      "templateDb": "wt_base",
+      "sourceDb": "app",
+      "workerDbPrefix": "wt_"
+    },
+    "redis": { "host": "localhost", "port": 6379, "maxLogicalDbs": 16 }
+  }
+}
