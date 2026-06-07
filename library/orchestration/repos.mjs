@@ -73,26 +73,31 @@ export function getRepo(name) {
   return { name, ...profile, repoRoot, pkgManager };
 }
 
-// Compute all resources for a worker, deterministic by index.
+// Compute all resources for a worker, deterministic by index. The database and Redis
+// blocks are optional — a project with neither still gets worktree + port isolation.
 export function workerResources(repo, index) {
   if (!Number.isInteger(index) || index < 0) {
     throw new Error(`index must be an integer >= 0 (got: ${index})`);
   }
-  const maxDbs = repo.redis?.maxLogicalDbs ?? 16;
-  if (index >= maxDbs) {
-    throw new Error(`index ${index} exceeds Redis's ${maxDbs} logical DBs. Use fewer workers or a dedicated Redis per worker.`);
+  const maxWorkers = repo.maxWorkers ?? repo.redis?.maxLogicalDbs ?? 16;
+  if (index >= maxWorkers) {
+    throw new Error(`index ${index} exceeds maxWorkers (${maxWorkers}). Raise maxWorkers in the profile or use fewer workers.`);
   }
-  const dbName = `${repo.db.workerDbPrefix}${index}`;
   const worktreePath = path.join(path.dirname(repo.repoRoot), `${repo.worktreePrefix}${index}`);
-  const { host, port, user, password } = repo.db;
-  return {
+  const res = {
     index,
     worktreePath,
     branch: `wf/worker-${index}`,
     webPort: repo.webBase + index,
     mcpPort: repo.mcpBase + index,
-    dbName,
-    databaseUrl: `postgres://${user}:${password}@${host}:${port}/${dbName}`,
-    redisUrl: `redis://${repo.redis.host}:${repo.redis.port}/${index}`,
   };
+  if (repo.db) {
+    const { host, port, user, password } = repo.db;
+    res.dbName = `${repo.db.workerDbPrefix}${index}`;
+    res.databaseUrl = `postgres://${user}:${password}@${host}:${port}/${res.dbName}`;
+  }
+  if (repo.redis) {
+    res.redisUrl = `redis://${repo.redis.host}:${repo.redis.port}/${index}`;
+  }
+  return res;
 }
