@@ -12,8 +12,8 @@
 <h1>agent-harness-kit</h1>
 
 <p><b>Agent = Model + Harness.</b><br>
-Deterministic guardrails, a spec-driven planning system, and file-based memory<br>
-for coding agents — drop it into any project.</p>
+Deterministic guardrails, spec-driven planning, file-based memory,<br>
+and parallel-agent orchestration — drop it into any project.</p>
 
 <p>
 <img src="https://img.shields.io/badge/license-MIT-1f1f1f?style=for-the-badge" alt="License: MIT">
@@ -41,6 +41,21 @@ in `docs/` is tool-agnostic - any coding agent (opencode, Codex, Cursor, Gemini 
 can read it. [`AGENTS.md`](AGENTS.md) is the neutral entry point; see the portability
 split in [`docs/HARNESS.md`](docs/HARNESS.md).
 
+## What you get
+
+| Feature | What it does |
+|---|---|
+| **Guardrails** (hooks) | Deterministic checks the model can't skip: confirm-before-push, no-emoji copy, recency-biased search. |
+| **Planning** (specs) | A spec-driven system (`/spec`) that survives across sessions — `SPEC` / `PHASES` / `SESSION` / `DONE`. |
+| **Memory** | A file-based methodology so context carries between sessions, with `/memory-gc` to keep it lean. |
+| **Subagents** | Ready specialists (code-reviewer, researcher) for context-isolated, delegated work. |
+| **Orchestration** | A resource broker giving each parallel agent its own worktree, port, and database — no clashes — plus a QA-workflow template (build, TDD, e2e, review) with adversarial verification. |
+| **Instruction layer** | `CLAUDE.md` patterns + rules that load only where they apply. |
+
+Cloned into a project, it's **shared at the repo level** — teammates get the same harness on
+checkout, no separate install. (A few things stay local by design: your real
+`broker.config.json`, machine permissions, and your memory.)
+
 ## Quickstart
 
 **Let your agent set it up.** The fastest path: paste this prompt into your coding
@@ -53,29 +68,37 @@ Set up "agent-harness-kit" in this project. Steps:
 1. Install it. Clone the kit into a temp folder and run its installer here:
      git clone https://github.com/Lelemon-studio/agent-harness-kit .ahk-setup
      bash .ahk-setup/install.sh .          # Windows: .\.ahk-setup\install.ps1 -Target .
-   That adds .claude/{hooks,commands,agents}, settings.json, and specs/_templates.
-   Append .ahk-setup/gitignore-snippet.txt to my .gitignore (skip lines already there).
+   That adds .claude/{hooks,commands,agents,scripts/orchestration}, settings.json, and
+   specs/_templates. Append .ahk-setup/gitignore-snippet.txt to my .gitignore (skip
+   lines already there).
 
-2. Adapt it to THIS project - leave no placeholders:
-   - Inspect the codebase: package manager, dev/build/test/lint commands, stack, layout.
+2. Adapt it to THIS project - leave no placeholders. Inspect the codebase first
+   (package manager, dev/build/test/lint commands, ports, stack, layout), then:
    - Write a root CLAUDE.md from .ahk-setup/template/examples/CLAUDE.root.example.md with
-     my real stack, commands, and conventions. If it's a multi-project workspace, add a
-     per-subrepo CLAUDE.md too (CLAUDE.subrepo.example.md).
-   - Review the no-emoji-copy.py hook: keep it only if I have customer-facing copy files;
+     my real stack, commands, and conventions. Multi-project? add a per-subrepo CLAUDE.md
+     too (CLAUDE.subrepo.example.md).
+   - Copy the rules I need from .ahk-setup/library/rules/ into .claude/rules/ - my
+     language's starter rules, and parallel-isolation.md if I'll run agents in parallel.
+   - Review the no-emoji-copy.py hook: keep only if I have customer-facing copy files;
      otherwise narrow its scope to my file types or remove it. Tell me what you changed.
+   - Orchestration broker (for running parallel agents without clashes): copy
+     .claude/scripts/orchestration/broker.config.example.json to broker.config.json and
+     FILL IT IN from my project - the Postgres container + port (read my docker-compose),
+     my dev port, and my package manager. One profile per repo. Skip if I won't parallelize.
    - Seed memory/MEMORY.md following .ahk-setup/docs/MEMORY-SYSTEM.md with what you learned.
 
-3. Verify: confirm Python is on PATH and the hooks are wired in .claude/settings.json.
-   Have me test by attempting a git push - the confirm-push hook should fire.
+3. Verify: Python on PATH and hooks wired in .claude/settings.json (have me test a git
+   push - the confirm-push hook should fire). If you set up the broker, confirm
+   `node .claude/scripts/orchestration/workspace.mjs --repo <name> list` runs.
 
-4. Delete the .ahk-setup folder. Then summarize what you installed and what I should
+4. Delete the .ahk-setup folder. Then summarize what you installed, what's shared in the
+   repo vs local-only (broker.config.json, permissions, memory), and what I should
    customize next.
 
-From now on, guide me through the product+engineering cycle in
-.ahk-setup/docs/WAYS-OF-WORKING.md (discover -> define -> plan -> build -> verify ->
-ship -> measure -> learn) - don't just execute; prompt me for the step I'm skipping.
-Read the kit's docs/ as needed: HARNESS.md (the model), WAYS-OF-WORKING.md,
-WRITING-CLAUDE-MD.md, MEMORY-SYSTEM.md, SPEC-SYSTEM.md.
+From now on, guide me through the product+engineering cycle (discover -> define -> plan ->
+build -> verify -> ship -> measure -> learn) - don't just execute; prompt me for the step
+I'm skipping. The kit's docs/ cover the model (HARNESS.md), the loop (WAYS-OF-WORKING.md),
+orchestration (AGENT-ORCHESTRATION.md), and the memory/spec systems - re-clone to read them.
 ```
 
 Prefer to do it by hand? See [Install](#install) below.
@@ -152,9 +175,12 @@ filled in and cohering. Read it next to the templates to see what "good" looks l
 
 [`library/`](library/) is a lift-and-adapt collection: opinionated **starter rules +
 anti-patterns** per language (TypeScript on Bun, Rust, Go) plus cross-language
-[engineering principles](library/rules/engineering-principles.md), and a curated,
-source-checked list of [recommended skills](library/SKILLS.md) to install. It also
-makes the case for [why these languages pair well with coding agents](library/README.md#why-these-languages-pair-well-with-coding-agents)
+[engineering principles](library/rules/engineering-principles.md), a curated,
+source-checked list of [recommended skills](library/SKILLS.md) to install, and the
+[**orchestration broker**](library/orchestration/) - the tool that hands each parallel
+agent an isolated worktree, port, and database so they never collide (the installer
+copies it into your project). It also makes the case for
+[why these languages pair well with coding agents](library/README.md#why-these-languages-pair-well-with-coding-agents)
 (fast, deterministic feedback = better sensors).
 
 ## Install
@@ -166,13 +192,20 @@ makes the case for [why these languages pair well with coding agents](library/RE
 ```
 
 This copies `.claude/hooks/`, `.claude/commands/`, `.claude/agents/`,
-`.claude/settings.json` (it won't clobber an existing one), and `specs/_templates/`.
-The `template/examples/` patterns are opt-in - copy what fits by hand. Then:
+`.claude/settings.json` (it won't clobber an existing one), `.claude/scripts/orchestration/`
+(the resource broker), and `specs/_templates/`. The `template/examples/` patterns and
+`library/rules/` are opt-in - copy what fits by hand. Then:
 
 1. Append [`gitignore-snippet.txt`](gitignore-snippet.txt) to your project's `.gitignore`.
 2. Seed your memory from `template/memory/` - see [`docs/MEMORY-SYSTEM.md`](docs/MEMORY-SYSTEM.md).
 3. Hooks need Python on `PATH`. Open the agent and try `git push` to confirm the
    confirmation prompt fires.
+4. To run parallel agents, copy `.claude/scripts/orchestration/broker.config.example.json`
+   to `broker.config.json` and fill in your project's ports and database. Needs Docker +
+   a shared Postgres. See [`library/orchestration/README.md`](library/orchestration/README.md).
+
+The agent-driven [Quickstart](#quickstart) does steps 1-4 and adapts them to your codebase;
+this is the manual path.
 
 ## Docs
 
