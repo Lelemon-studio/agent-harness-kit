@@ -1,0 +1,19 @@
+# CODEOWNERS.example — copy to .github/CODEOWNERS and adjust the owners.
+#
+# This is the review gate for the harness itself: changes to what every
+# teammate's agent reads (shared memory, rules, hooks, root instructions) get a
+# human review before they merge. Access control is the repo's GitHub/GitLab
+# permissions; CODEOWNERS is the *curation* gate on top.
+#
+# Listed owners are auto-requested as reviewers on any PR touching these paths.
+# Pair with branch protection ("require review from Code Owners") to enforce it.
+
+# Curated shared team memory — the team's brain. Vet every change.
+/knowledge/team-memory/      @your-handle
+
+# Agent harness: hooks, settings, agents, commands, orchestration broker.
+/.claude/                    @your-handle
+
+# Cross-tool + root agent instructions.
+/AGENTS.md                   @your-handle
+/CLAUDE.md                   @your-handle

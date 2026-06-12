@@ -25,6 +25,14 @@ memory/
 > `template/memory/` here are starters to copy in, not something the installer
 > places automatically.
 
+> **The format is the integration.** Because every file is markdown + YAML
+> frontmatter + `[[wikilinks]]` + an index, the memory dir opens directly as an
+> [Obsidian](https://obsidian.md) vault (graph view, backlinks, search) with zero
+> conversion — useful for browsing a large memory by hand, or for teammates on a
+> non-Claude-Code tool to read it via an Obsidian/filesystem MCP. One caveat: a
+> rename done *outside* Obsidian won't auto-update `[[wikilinks]]`, so fix links
+> when `/memory-gc` merges files.
+
 ## Topic file format
 
 ```markdown
@@ -53,11 +61,50 @@ Link related memories with [[their-name]].
   Convert relative dates to absolute.
 - **`reference`** - pointers to external resources (URLs, dashboards, tickets).
 
+## Team memory (shared, in-repo)
+
+The dir above is **personal** - one operator, outside the repo. When a lesson
+applies to the whole team (a production incident's fix, a convention, an
+integration gotcha), it belongs in a **shared, version-controlled** memory that
+every teammate's agent reads. Pattern, battle-tested on a real team where everyone
+runs Claude Code:
+
+```
+<repo>/knowledge/team-memory/
+├── MEMORY.md            # index, same one-line-per-memory format
+├── feedback_*.md        # lessons (the why + how-to-apply)
+└── reference_*.md       # technical references (integrations, dashboards)
+```
+
+- **Only `feedback` and `reference` graduate.** `project` (changing state) and
+  `user` (personal preference) stay personal - they'd be noise or wrong for
+  teammates.
+- **Promotion flow:** write it in your personal dir first; if it's cross-team, copy
+  it to `team-memory/` and add its index line **in a PR**. The review *is* the
+  curation gate - a teammate vets the lesson before it enters everyone's context.
+- **Discoverability:** link `team-memory/MEMORY.md` from the repo's root
+  `CLAUDE.md`/`AGENTS.md` so every agent loads it at session start.
+- **Access = the repo's.** There's no per-note ACL and you don't want one: who can
+  read/write is the git host's repo permissions; who can *merge a change* is
+  CODEOWNERS + PR review (see `template/examples/CODEOWNERS.example`). Markdown in
+  git, gated by review - that's the whole access model.
+- **Non-Claude-Code teammates** (Claude Desktop, Cursor, ...) read the same files
+  via a filesystem/Obsidian MCP pointed at the folder, or by cloning the repo.
+
+Why git markdown and not a SaaS (Notion/Confluence): it's what the *agents* read
+natively, it versions and diffs cleanly, and PR review is already your curation
+gate. A SaaS is the right home for human-only, non-technical knowledge - not for
+what the coding agent consumes.
+
 ## Rules that keep it from rotting
 
 1. **Index size ceiling.** Keep `MEMORY.md` small enough to load fully (in Claude
-   Code, under ~24KB). One line per memory, under ~200 chars. Detail goes in the
-   topic file, never in the index.
+   Code, under ~24KB) - **over the ceiling it loads *partially and silently*, so
+   memories near the bottom just fall out of context.** One line per memory, and
+   budget against the *total* line length, not just the hook: a `- [name](name) —
+   hook` entry repeats the filename twice (~80+ chars of prefix for long slugs), so
+   keep the whole line under ~170 chars and push detail into the topic file
+   (`/memory-gc` truncates on total line length for exactly this reason).
 2. **One fact = one file.** Before creating, check if a file already covers it  - 
    update, don't duplicate.
 3. **Delete what's wrong.** A stale or false memory is worse than no memory.
