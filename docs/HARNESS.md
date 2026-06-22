@@ -33,6 +33,7 @@ They're wired in `.claude/settings.json` (version-controlled).
 | `confirm-push.py` | PreToolUse(Bash) | Forces confirmation before `git push` / `gh pr create|merge` - outward-facing, deploy-triggering actions. Local commits stay advisory. |
 | `no-emoji-copy.py` | PreToolUse(Write/Edit/MultiEdit) | Example preventive sensor: denies emojis in a configured set of customer-facing files *before* the write lands. |
 | `websearch-add-year.py` | PreToolUse(WebSearch) | Appends the current year to searches with no temporal anchor, so results skew recent. |
+| `verify-gate.py` | PreToolUse(Bash) | Runs the project's declared fast checks (typecheck/lint and any configured) before `git push` and *denies* it if any fails - the loop's verify step made non-optional. Inert until the project declares matching checks (high precision). Logs each block to `.claude/harness-events.jsonl`. See `docs/LOOP-ENGINEERING.md`. |
 
 **Design principle: high precision over high coverage.** A sensor with false
 positives is worse than none - it erodes trust and gets disabled. Keep scope

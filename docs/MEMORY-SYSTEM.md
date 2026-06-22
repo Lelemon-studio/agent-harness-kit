@@ -76,6 +76,20 @@ consolidation pass - the simple version of a "reflection" loop:
 
 Run it occasionally, not every session.
 
+## Closing the loop: from friction to memory
+
+Deterministic sensors don't just block - they leave a trail. The `verify-gate` hook
+(see `docs/HARNESS.md`) appends each block to `.claude/harness-events.jsonl`, a
+gitignored runtime log. A *recurring* entry - the agent keeps tripping the same
+check, the same denial fires week after week - is a signal, not noise: it means a
+rule or a memory is missing.
+
+Mine the log during `/memory-gc`: turn a repeated friction event into a `feedback`
+memory (with the *why*) or a hard rule in `CLAUDE.md`, so the harness learns the
+lesson once instead of the agent re-learning it every session. That is the loop that
+improves the loop (see `docs/LOOP-ENGINEERING.md`, lever 9). Keep it honest: a
+one-off block is not a pattern - only promote friction that actually repeats.
+
 ## When NOT to graduate to something heavier
 
 A vector/graph memory system (Mem0, Zep/Graphiti, Letta, etc.) earns its

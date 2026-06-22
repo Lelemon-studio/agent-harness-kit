@@ -13,4 +13,6 @@
 .claude/scripts/orchestration/broker.config.json
 # Ephemeral per-worker worktrees created by the broker.
 *-wt-[0-9]*/
+# Harness event log written by verify-gate.py (runtime feedback data).
+.claude/harness-events.jsonl
 # --- end snippet ---

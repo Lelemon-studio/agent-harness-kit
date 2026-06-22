@@ -12,6 +12,7 @@
 //   node workspace.mjs setup-template --repo <name> [--force]
 //   node workspace.mjs alloc --repo <name> --index 0
 //   node workspace.mjs free  --repo <name> --index 0
+//   node workspace.mjs cleanup-stale --repo <name> [--older-than 12]
 //   node workspace.mjs list  --repo <name>
 //
 // Talks to Postgres via `docker exec` so it doesn't need psql on the host.
@@ -227,6 +228,52 @@ function cmdFree(repo, args) {
   log(`Worker ${index} freed.`);
 }
 
+function cmdCleanupStale(repo, args) {
+  // Reclaim slots that were allocated too long ago. A worker that never ran `free`
+  // (forgotten, crashed, killed) otherwise holds its worktree/DB/port forever. We use
+  // the slot's `at` timestamp (set at alloc time, see slots.mjs) as its age.
+  const maxWorkers = repo.maxWorkers ?? 16;
+  const timeoutHours = (args['older-than'] !== undefined && args['older-than'] !== true)
+    ? Number(args['older-than'])
+    : (repo.workerTimeoutHours ?? 12);
+  if (!Number.isFinite(timeoutHours) || timeoutHours <= 0) {
+    throw new Error(`--older-than must be a positive number of hours (got: ${args['older-than']})`);
+  }
+
+  const cutoffMs = Date.now() - timeoutHours * 3600 * 1000;
+  const slots = listSlots(repo.repoRoot);
+  if (!slots.length) {
+    log('No claimed slots. Nothing to clean up.');
+    return;
+  }
+
+  log(`Cleaning up slots allocated more than ${timeoutHours}h ago...`);
+  let freed = 0;
+  for (const s of slots) {
+    if (s.index === undefined || s.index < 0 || s.index >= maxWorkers) continue;
+    // Slot predates the timestamp change (or a corrupt registry entry): never free blind.
+    if (!s.at) {
+      log(`  #${s.index}  unknown age (no timestamp), skipping`);
+      continue;
+    }
+    const allocatedMs = Date.parse(s.at);
+    if (Number.isNaN(allocatedMs)) {
+      log(`  #${s.index}  unparseable timestamp "${s.at}", skipping`);
+      continue;
+    }
+    if (allocatedMs > cutoffMs) continue; // still fresh
+
+    const ageHours = ((Date.now() - allocatedMs) / 3600 / 1000).toFixed(1);
+    log(`  #${s.index}  stale (allocated ${s.at}, ~${ageHours}h ago) — freeing`);
+    // Reuse the exact same teardown as `free` so we never leave half-cleaned resources.
+    cmdFree(repo, { index: s.index });
+    freed++;
+  }
+
+  log('');
+  log(freed ? `Cleaned up ${freed} stale slot(s).` : 'No stale slots found.');
+}
+
 function cmdList(repo) {
   // Slot registry: the source of truth for which indices are claimed (machine-global).
   log('Claimed slots:');
@@ -261,7 +308,7 @@ function main() {
 
   if (!command || args.help) {
     log('Resource broker — isolated workspace per worker.');
-    log('Commands: setup-template | alloc --index N | free --index N | list');
+    log('Commands: setup-template | alloc --index N | free --index N | cleanup-stale [--older-than H] | list');
     log('Common flag: --repo <profile> (from broker.config.json)');
     return;
   }
@@ -276,9 +323,10 @@ function main() {
     case 'setup-template': return cmdSetupTemplate(repo, args);
     case 'alloc': return cmdAlloc(repo, args);
     case 'free': return cmdFree(repo, args);
+    case 'cleanup-stale': return cmdCleanupStale(repo, args);
     case 'list': return cmdList(repo);
     default:
-      throw new Error(`Unknown command: "${command}". Use: setup-template | alloc | free | list`);
+      throw new Error(`Unknown command: "${command}". Use: setup-template | alloc | free | cleanup-stale | list`);
   }
 }
 

@@ -33,6 +33,10 @@ sensors correct it *after*.
    [`docs/RULES-AND-OPS.md`](docs/RULES-AND-OPS.md),
    [`docs/AGENT-ORCHESTRATION.md`](docs/AGENT-ORCHESTRATION.md),
    [`docs/OBSERVABILITY.md`](docs/OBSERVABILITY.md) - structure, ops, multi-agent, telemetry.
+6. [`docs/RECIPES.md`](docs/RECIPES.md) - code-free, portable solution blueprints you hand
+   to an agent (what a recipe is and isn't, how to write one); examples in [`library/recipes/`](library/recipes/).
+7. [`docs/LOOP-ENGINEERING.md`](docs/LOOP-ENGINEERING.md) - the harness as the agent's
+   act-observe-verify-iterate-stop loop: the nine levers and how recipes feed it.
 
 ## Portable methodology vs tool mechanics
 

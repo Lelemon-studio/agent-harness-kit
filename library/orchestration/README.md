@@ -47,7 +47,26 @@ node workspace.mjs alloc --repo <profile> --index 2  # or claim a specific index
 node workspace.mjs list --repo <profile>             # claimed slots + worktrees + DBs
 # ... the agent works in <repo>-wt-<i> (its .env.local is ready) ...
 node workspace.mjs free  --repo <profile> --index <i>  # cleanup: worktree + branch + DB + slot
+node workspace.mjs cleanup-stale --repo <profile>      # free slots older than workerTimeoutHours
+node workspace.mjs cleanup-stale --repo <profile> --older-than 6  # override the age threshold
 ```
+
+### Reclaiming forgotten workers (`cleanup-stale`)
+
+A slot is meant to be released by `free`. If a worker crashes, is killed, or the agent
+simply forgets, the slot lives on and its worktree, branch, port and database stay
+allocated forever. `cleanup-stale` is the safety net: it frees every slot whose
+allocation timestamp is older than a threshold.
+
+- The threshold defaults to the profile's `workerTimeoutHours` (12 if unset) and can be
+  overridden per run with `--older-than <hours>`.
+- It reuses the exact `free` teardown, so a reclaimed worker leaves no half-cleaned
+  worktree, branch or database behind.
+- Slots with **no** timestamp (claimed before this feature, or a corrupt registry entry)
+  are reported and **skipped**, never freed blind. Run them through `free --index N` by
+  hand once you've confirmed they're dead.
+- Safe to run on a schedule (e.g. a cron or a pre-`alloc` hook) — fresh slots are left
+  untouched.
 
 ## How the orchestrator consumes it
 
@@ -59,8 +78,11 @@ worker's DB — isolation is enforced, not requested. See `qa-workflow.mjs` for 
 ## Notes / current limits
 
 - `maxWorkers` (profile, default 16) caps concurrent workers.
+- `workerTimeoutHours` (profile, default 12) is the default age after which `cleanup-stale`
+  frees a forgotten slot. Each slot records its allocation time, so age is the freeness signal.
 - A slot outlives the ephemeral `alloc` process and is released by `free`. A crashed alloc that
   left a slot behind is auto-reclaimed only once its worktree is gone; `list` flags such slots.
+  Time-based reclamation (slot never freed) is handled separately by `cleanup-stale`.
 - `node_modules`: installed per worktree. A junction to the main repo's `node_modules` does NOT
   work with bun's layout on Windows (tsc can't resolve types). Future optimization: install once
   into a shared pristine store and junction workers to it (workers only read).

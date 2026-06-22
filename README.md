@@ -157,7 +157,9 @@ docs/
 ├── AGENT-ORCHESTRATION.md        # multi-agent patterns (and when NOT to)
 ├── RULES-AND-OPS.md              # rules files + ops commands
 ├── OBSERVABILITY.md              # OTEL telemetry: see your token/cost usage
-└── MEMORY-SYSTEM.md              # the file-based memory methodology
+├── MEMORY-SYSTEM.md              # the file-based memory methodology
+├── RECIPES.md                    # portable, code-free solution blueprints for agents
+└── LOOP-ENGINEERING.md           # designing the act-observe-verify-iterate-stop loop
 ```
 
 The hooks double as worked examples of two things that are easy to get wrong:
@@ -181,7 +183,9 @@ source-checked list of [recommended skills](library/SKILLS.md) to install, and t
 agent an isolated worktree, port, and database so they never collide (the installer
 copies it into your project). It also makes the case for
 [why these languages pair well with coding agents](library/README.md#why-these-languages-pair-well-with-coding-agents)
-(fast, deterministic feedback = better sensors).
+(fast, deterministic feedback = better sensors). And [`library/recipes/`](library/recipes/)
+holds **recipes** - code-free, portable solution blueprints you hand to an agent to rebuild
+a whole architecture in your stack (see [`docs/RECIPES.md`](docs/RECIPES.md)).
 
 ## Install
 
@@ -221,6 +225,8 @@ Any agent can start from [`AGENTS.md`](AGENTS.md) (the neutral entry point). The
 - [`docs/RULES-AND-OPS.md`](docs/RULES-AND-OPS.md) - rules files and ops commands for repeatable procedures.
 - [`docs/OBSERVABILITY.md`](docs/OBSERVABILITY.md) - turn on OTEL telemetry to see token/cost usage.
 - [`docs/MEMORY-SYSTEM.md`](docs/MEMORY-SYSTEM.md) - the file-based memory methodology and `/memory-gc`.
+- [`docs/RECIPES.md`](docs/RECIPES.md) - code-free, portable solution blueprints you hand to an agent: what a recipe is (and isn't), the anatomy, and how to write one. Worked examples in [`library/recipes/`](library/recipes/).
+- [`docs/LOOP-ENGINEERING.md`](docs/LOOP-ENGINEERING.md) - the harness as the agent's act-observe-verify-iterate-stop loop: the nine levers, anti-patterns, an honest consensus-vs-hype read, and how recipes feed the loop.
 
 ## Customize
 

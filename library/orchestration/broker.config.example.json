@@ -1,5 +1,5 @@
 {
-  "_comment": "Resource broker project profiles. Copy this file to broker.config.json (gitignored) and fill in your real values. One key per project. The broker provisions an isolated workspace per worker: own git worktree + deterministic port by index. The 'db' and 'redis' blocks are OPTIONAL — include 'db' only if you want a per-worker Postgres database (cloned from a template); include 'redis' only if you want a per-worker logical DB. With neither, you still get worktree + port isolation. maxWorkers caps concurrent workers (default 16).",
+  "_comment": "Resource broker project profiles. Copy this file to broker.config.json (gitignored) and fill in your real values. One key per project. The broker provisions an isolated workspace per worker: own git worktree + deterministic port by index. The 'db' and 'redis' blocks are OPTIONAL — include 'db' only if you want a per-worker Postgres database (cloned from a template); include 'redis' only if you want a per-worker logical DB. With neither, you still get worktree + port isolation. maxWorkers caps concurrent workers (default 16). workerTimeoutHours is the default age (in hours) after which 'cleanup-stale' frees a slot whose worker never ran 'free' — protects disk/DB/worktrees from leaks (default 12).",
   "my-project": {
     "repoSubdir": "my-project",
     "worktreePrefix": "my-project-wt-",
@@ -7,6 +7,7 @@
     "webBase": 3100,
     "mcpBase": 4100,
     "maxWorkers": 16,
+    "workerTimeoutHours": 12,
     "copyFiles": [".env"],
     "pkgManager": { "bin": "~/.bun/bin/bun.exe", "installArgs": ["install", "--frozen-lockfile"] },
     "db": {

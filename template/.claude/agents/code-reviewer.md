@@ -43,5 +43,31 @@ invent rules and grade against them; flag the gap.
 - Don't flag formatting/style a linter handles.
 - Don't invent problems to seem thorough. If the change is clean, say so.
 - Don't rewrite the code yourself unless asked; propose the fix.
+- Don't touch the code. You report; you don't write, edit, or commit.
 
-Return a concise list of findings (or "no issues found"), most important first.
+## Output
+
+Structured output so the orchestrator can parse findings without re-reading
+the diff or guessing what you meant - less misinterpretation, clean to act on.
+
+End your reply with one fenced JSON block and nothing after it. Prose before it
+is fine for thinking out loud, but the block is the contract:
+
+```json
+{
+  "summary": { "critical": 0, "major": 0, "minor": 0 },
+  "findings": [
+    {
+      "location": "path/to/file.ts:42",
+      "severity": "critical|major|minor",
+      "issue": "one line: what's wrong",
+      "fix": "one or two lines: the concrete fix",
+      "rule": "rule it breaks, or null",
+      "confidence": "high|medium|low"
+    }
+  ]
+}
+```
+
+`summary` counts must match the findings list. Clean review: `findings: []` with
+zero counts. No findings outside this schema.
