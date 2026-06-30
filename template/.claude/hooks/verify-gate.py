@@ -79,7 +79,8 @@ project_dir = os.environ.get("CLAUDE_PROJECT_DIR") or data.get("cwd") or os.getc
 def detect_package_manager(root):
     for lockfile, pm in (
         ("pnpm-lock.yaml", "pnpm"),
-        ("bun.lockb", "bun"),
+        ("bun.lock", "bun"),   # Bun 1.2+ default (text lockfile)
+        ("bun.lockb", "bun"),  # older binary lockfile
         ("yarn.lock", "yarn"),
         ("package-lock.json", "npm"),
     ):
