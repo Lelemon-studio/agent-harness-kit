@@ -17,8 +17,10 @@ good harness was born from a real error - don't add rules speculatively.
 | Guide | Where it lives | What it does |
 |---|---|---|
 | **Root instructions** | `CLAUDE.md` | Project structure, conventions, global rules. |
+| **Cross-tool pointer** | `AGENTS.md` (`template/examples/AGENTS.example.md`) | Thin [agents.md](https://agents.md)-standard entry so non-Claude-Code agents (Cursor, Codex, Copilot) orient too. Points at `CLAUDE.md`, doesn't duplicate it. |
 | **Per-subrepo instructions** | `*/CLAUDE.md` | Rules and patterns specific to each project. |
 | **Persistent memory** | auto-memory dir (see `docs/MEMORY-SYSTEM.md`) | Topic files + a one-line index. Injects priors across sessions. |
+| **Shared team memory** | `knowledge/team-memory/` + `CODEOWNERS` (see `docs/MEMORY-SYSTEM.md`) | Cross-team `feedback`/`reference` memories, in git, promoted via PR; CODEOWNERS is the curation gate. |
 | **Spec system** | `specs/` + `/spec*` commands | A planning protocol (SPEC / PHASES / SESSION / DONE) that persists a feature's state across sessions. |
 
 ## Layer 2 - Sensors (feedback: correct AFTER acting)
