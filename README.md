@@ -1,3 +1,5 @@
+> **Archivado (octubre 2026).** Este kit copiaba un harness (hooks, sistema de specs, memoria) dentro de cada proyecto. Hoy lo reemplazamos con [plugins de Claude Code](https://code.claude.com/docs/en/plugin-marketplaces) distribuidos desde un marketplace, y con el flujo de [`mattpocock/skills`](https://github.com/mattpocock/skills) para planificar y construir. Queda como referencia de solo lectura.
+
 <div align="center">
 
 <pre>
